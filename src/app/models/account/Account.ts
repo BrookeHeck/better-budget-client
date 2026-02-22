@@ -1,6 +1,6 @@
 import {AccountType} from './account-type';
 
-export class Account {
+export interface Account {
   accountId: number;
   name: string;
   balance: number;
