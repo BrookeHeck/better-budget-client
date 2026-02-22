@@ -4,8 +4,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
-import { provideStore } from '@ngrx/store';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {provideHttpClient} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +18,6 @@ export const appConfig: ApplicationConfig = {
             }
         }
     }),
-    provideStore(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideHttpClient(),
 ]
 };

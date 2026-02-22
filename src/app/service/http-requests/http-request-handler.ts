@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
@@ -10,8 +10,10 @@ export class HttpRequestHandler {
 
   private readonly baseUrl = 'http://localhost:8080/';
 
-  public get<R>(endpoint: string): Promise<R> {
-    return firstValueFrom(this.http.get<R>(this.baseUrl + endpoint));
+  public get<R>(endpoint: string, params?: HttpParams): Promise<R> {
+    return params ?
+      firstValueFrom(this.http.get<R>(this.baseUrl + endpoint, { params })) :
+      firstValueFrom(this.http.get<R>(this.baseUrl + endpoint));
   }
 
   public post<B, R>(endpoint: string, body: B): Promise<R> {
