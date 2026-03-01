@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpRequestHandler} from './http-request-handler';
-import {Account} from '../../models/account/Account';
+import {Account} from '../../model/account/Account';
 
 @Injectable({
   providedIn: 'root'

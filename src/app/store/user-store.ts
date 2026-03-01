@@ -1,5 +1,4 @@
 import {User} from '../model/user/User';
-import {UserStatus} from '../model/user/UserStatus';
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
 import {inject} from '@angular/core';
 import {UserRequests} from '../service/http-requests/user-requests';

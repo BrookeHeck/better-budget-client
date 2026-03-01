@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpRequestHandler} from './http-request-handler';
-import {TransactionItem} from '../../models/transaction/transactionItem';
+import {TransactionItem} from '../../model/transaction/transactionItem';
 
 @Injectable({
   providedIn: 'root'

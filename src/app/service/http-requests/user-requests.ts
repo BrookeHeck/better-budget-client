@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {firstValueFrom, Observable} from 'rxjs';
-import {User} from '../../models/user/User';
+import {User} from '../../model/user/User';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -9,10 +9,10 @@ import {HttpClient} from '@angular/common/http';
 export class UserRequests {
   private readonly http = inject(HttpClient);
 
-  private readonly baseUrl = 'http://localhost:8080/user';
+  private readonly baseUrl = 'http://localhost:8080/api/v1/user';
 
   public async login(email: string, password: string): Promise<User> {
-    const authHeader = 'Basic: ' + btoa(`${email}:${password}`);
+    const authHeader = 'Basic ' + btoa(`${email}:${password}`);
     return firstValueFrom(
       this.http.post<User>(`${this.baseUrl}/login`, null, {headers: {Authorization: authHeader}})
     );

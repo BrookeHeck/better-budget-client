@@ -1,10 +1,12 @@
 import {UserStatus} from './UserStatus';
 
-export interface User {
-  userId: number;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  status: UserStatus;
+export class User {
+  userId: number | null = null;
+  email: string | null = null;
+  password: string | null = null;
+  firstName: string | null = null;
+  lastName: string | null = null;
+  status: UserStatus | null = null;
+
+  constructor() {}
 }

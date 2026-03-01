@@ -1,1 +1,24 @@
 <h1>LOGIN</h1>
+
+<form [formGroup]="loginForm">
+  <input
+    pInputText
+    formControlName="email"
+    [required]="true"
+  />
+  <input
+    pInputText
+    formControlName="password"
+    [required]="true"
+  />
+
+  <p-button label="Submit" (onClick)="login()" />
+</form>
+
+@if (loginError) {
+  <div class="card">
+    <p-message>Incorrect email or password.</p-message>
+  </div>
+}
+
+<p-button label="register" routerLink="/resgister"/>

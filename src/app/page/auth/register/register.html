@@ -1,1 +1,40 @@
-<p>register works!</p>
+<h1>Register</h1>
+<form [formGroup]="registerForm">
+  <p-floatlabel>
+    <input
+      pInputText
+      type="text"
+      id="first-name"
+      formControlName="firstName"
+    />
+    <label for="first-name">First Name</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <input
+      pInputText
+      type="text"
+      id="last-name"
+      formControlName="lastName"
+    />
+    <label for="first-name">Last Name</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <input
+      pInputText
+      type="text"
+      id="email"
+      formControlName="email"
+    />
+    <label for="email">Email</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <input
+      pInputText
+      type="text"
+      id="password"
+      formControlName="password"
+    />
+    <label for="password">Password</label>
+  </p-floatlabel>
+  <p-button label="Submit" (onClick)="register()"/>
+</form>
