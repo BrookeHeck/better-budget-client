@@ -1,3 +1,9 @@
 <header>
-  <p-menubar [model]="menuItems()" class="m-5" />
+  <p-menubar [model]="menuItems()" class="m-5" >
+    @if (userStore.authenticated()) {
+      <ng-template #end>
+        <p-avatar shape="circle" class="mr-5" />
+      </ng-template>
+    }
+  </p-menubar>
 </header>
