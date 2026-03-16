@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {InputText} from 'primeng/inputtext';
 import {FloatLabel} from 'primeng/floatlabel';
 import {Button} from 'primeng/button';
+import {Card} from 'primeng/card';
 
 @Component({
   selector: 'register',
@@ -13,7 +14,8 @@ import {Button} from 'primeng/button';
     InputText,
     FloatLabel,
     ReactiveFormsModule,
-    Button
+    Button,
+    Card
   ],
   templateUrl: './register.html',
 })
@@ -31,7 +33,6 @@ export class Register {
   async register() {
     const {firstName, lastName, email, password} = this.registerForm.value;
     const user: User = {...new User(), firstName, lastName, email, password};
-    console.log(user);
     try {
       await this.userRequests.register(user);
       this.router.navigate(['/login'])

@@ -5,10 +5,12 @@ import {InputTextModule} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {Router, RouterLink} from '@angular/router';
 import {Message} from 'primeng/message';
+import {Card} from 'primeng/card';
+import {FloatLabel} from 'primeng/floatlabel';
 
 @Component({
   selector: 'login',
-  imports: [InputTextModule, ReactiveFormsModule, Button, RouterLink, Message],
+  imports: [InputTextModule, ReactiveFormsModule, Button, RouterLink, Message, Card, FloatLabel],
   templateUrl: './login.html',
 })
 export class Login {

@@ -1,24 +1,36 @@
-<h1>LOGIN</h1>
+<div class="place-items-center mt-20">
+  <p-card>
+    <h1 class="text-center m-4">Login</h1>
 
-<form [formGroup]="loginForm">
-  <input
-    pInputText
-    formControlName="email"
-    [required]="true"
-  />
-  <input
-    pInputText
-    formControlName="password"
-    [required]="true"
-  />
+    <form [formGroup]="loginForm" class="flex flex-col gap-8 justify-center items-center p-6" >
+      <p-floatlabel>
+        <input
+          pInputText
+          id="email"
+          formControlName="email"
+          [required]="true"
+          class="w-100"
+        />
+        <label for="email">Email</label>
+      </p-floatlabel>
+      <p-floatlabel>
+        <input
+          pInputText
+          id="password"
+          formControlName="password"
+          [required]="true"
+          class="w-100"
+        />
+        <label for="password">Password</label>
+      </p-floatlabel>
 
-  <p-button label="Submit" (onClick)="login()" />
-</form>
+      <p-button label="Login" (onClick)="login()" />
+    </form>
 
-@if (loginError) {
-  <div class="card">
-    <p-message>Incorrect email or password.</p-message>
-  </div>
-}
-
-<p-button label="register" routerLink="/resgister"/>
+    @if (loginError) {
+      <div class="card">
+        <p-message>Incorrect email or password.</p-message>
+      </div>
+    }
+  </p-card>
+</div>
