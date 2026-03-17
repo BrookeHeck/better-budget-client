@@ -1,1 +1,7 @@
-<p>accounts-overview works!</p>
+<h1>Account Overview</h1>
+
+
+
+<p-dialog header="Edit Account" [modal]="true" [(visible)]="showForm" [style]="{ width: '25rem' }">
+  <account-form [account]="selectedAccount" (submit)="createAccount($event)"/>
+</p-dialog>
