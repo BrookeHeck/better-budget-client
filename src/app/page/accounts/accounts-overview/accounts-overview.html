@@ -1,6 +1,6 @@
 <h1>Account Overview</h1>
 
-
+<p-button label="Create Account" (onClick)="openForm()" />
 
 <p-dialog header="Edit Account" [modal]="true" [(visible)]="showForm" [style]="{ width: '25rem' }">
   <account-form [account]="selectedAccount" (submit)="createAccount($event)"/>

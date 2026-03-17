@@ -1,8 +1,8 @@
 export enum AccountType {
-  CHECKING,
-  SAVING,
-  LOAN,
-  CREDIT
+  CHECKING='CHECKING',
+  SAVING='SAVING',
+  LOAN='LOAN',
+  CREDIT='CREDIT'
 }
 
 export const AccountTypeDisplay: Record<AccountType, string> = {

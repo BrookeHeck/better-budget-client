@@ -21,26 +21,26 @@ export class AccountForm implements OnInit{
   @Output() submit: EventEmitter<Account> = new EventEmitter();
 
   form: FormGroup;
-  typeOptions: {label: string, value: string} = Object.keys(AccountType).map(type => ({
+  typeOptions: { value: string; label: string }[] = Object.keys(AccountType).map(type => ({
     value: type,
-    key: AccountTypeDisplay[type]
-  }))
+    label: AccountTypeDisplay[type]
+  }));
 
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl<string>(this.account.name),
       balance: new FormControl<number>(this.account.balance),
-      type: new FormControl<AccountType>(this.account.type)
+      accountType: new FormControl<AccountType>(this.account.accountType)
     });
     if(this.account.accountId) {
-      this.form.controls.type.disable();
+      this.form.controls['accountType'].disable();
     }
   }
 
   onSubmit() {
-    const {name, balance, type} = this.form.getRawValue();
+    const {name, balance, accountType} = this.form.getRawValue();
     this.submit.emit({
-      ...this.account, name, balance, type
+      ...this.account, name, balance, accountType
     })
   }
 }

@@ -3,14 +3,14 @@ import {UserStore} from '../../../store/user-store';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {Message} from 'primeng/message';
 import {Card} from 'primeng/card';
 import {FloatLabel} from 'primeng/floatlabel';
 
 @Component({
   selector: 'login',
-  imports: [InputTextModule, ReactiveFormsModule, Button, RouterLink, Message, Card, FloatLabel],
+  imports: [InputTextModule, ReactiveFormsModule, Button, Message, Card, FloatLabel],
   templateUrl: './login.html',
 })
 export class Login {

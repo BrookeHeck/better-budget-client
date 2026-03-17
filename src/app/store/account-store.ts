@@ -1,8 +1,7 @@
 import {Account} from '../model/account/Account';
-import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
-import {computed, inject} from '@angular/core';
+import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import {inject} from '@angular/core';
 import {AccountRequests} from '../service/http-requests/account-requests';
-import {AccountType} from '../model/account/account-type';
 
 type AccountState = {
   accounts: Account[],
@@ -17,18 +16,6 @@ const initialState: AccountState = {
 const accountStore = signalStore(
   {providedIn: "root"},
   withState(initialState),
-  withComputed(({accounts}) => ({
-    checking: computed(() => accounts.filter(a => a.type === AccountType.CHECKING)),
-    saving: computed(() => accounts.filter(a => a.type === AccountType.SAVING)),
-    loan: computed(() => accounts.filter(a => a.type === AccountType.LOAN)),
-    credit: computed(() => accounts.filter(a => a.type === AccountType.CREDIT)),
-    assets: computed(() => accounts.reduce((accum, acc) =>
-      acc.balance > 0 ? accum + acc.balance : accum
-    ), 0),
-    liabilities: computed(() => accounts.reduce((accum, acc) =>
-      acc.balance < 0 ? accum + acc.balance : accum
-    ), 0),
-  })),
   withMethods((store, accountRequestService = inject(AccountRequests)) => ({
     async loadAllAccounts(userId: number) {
       patchState(store, {loading: true});
@@ -51,7 +38,7 @@ const accountStore = signalStore(
         return {loading: false, accounts};
       })
     },
-    async deleteAccount(accountId: Account) {
+    async deleteAccount(accountId: number) {
       patchState(store, {loading: true});
       await accountRequestService.deleteAccount(accountId);
       patchState(store, state => {

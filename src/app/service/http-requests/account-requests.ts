@@ -25,7 +25,7 @@ export class AccountRequests {
     return this.http.put<Account, Account>(this.endpoint, account);
   }
 
-  public deleteAccount(accountId: Account): Promise<void> {
+  public deleteAccount(accountId: number): Promise<void> {
     return this.http.delete(`${this.endpoint}/${accountId}`);
   }
 }
