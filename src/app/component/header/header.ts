@@ -45,15 +45,18 @@ export class Header {
     },
     {
       label: 'Transactions',
-      icon: 'pi pi-credit-card'
+      icon: 'pi pi-credit-card',
+      routerLink: '/transactions',
     },
     {
       label: 'Recurring Payments',
-      icon: 'pi pi-replay'
+      icon: 'pi pi-replay',
+      routerLink: '/recurring-payments'
     },
     {
       label: 'Reports',
-      icon: 'pi pi-chart-bar'
+      icon: 'pi pi-chart-bar',
+      routerLink: 'reports',
     }
   ];
 }
