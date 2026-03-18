@@ -16,10 +16,10 @@
         <td>{{AccountTypeDisplay[account.accountType]}}</td>
         <td>{{account.balance | currency: 'USD' : 'symbol' : '1.2-2'}}</td>
         <td>
-          <p-button icon="pi pi-pencil" [rounded]="true" (onClick)="editAccount.emit(account)" />
+          <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" (onClick)="editAccount.emit(account)" />
         </td>
         <td>
-          <p-button icon="pi pi-trash" [rounded]="true" (onClick)="deleteAccount.emit(account.accountId)" severity="danger" />
+          <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" (onClick)="deleteAccount.emit(account.accountId)" severity="danger" />
         </td>
       </tr>
     </ng-template>

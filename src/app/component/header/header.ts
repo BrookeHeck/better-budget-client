@@ -53,6 +53,11 @@ export class Header {
       routerLink: '/transactions',
     },
     {
+      label: 'Budget',
+      icon: 'pi pi-wallet',
+      routerLink: '/budget'
+    },
+    {
       label: 'Recurring Payments',
       icon: 'pi pi-replay',
       routerLink: '/recurring-payments'
