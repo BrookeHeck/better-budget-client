@@ -24,10 +24,10 @@ export class Login {
     password: new FormControl<string>(''),
   });
 
-  login() {
+  async login() {
     const { email, password } = this.loginForm.value;
     try {
-      this.userStore.login(email, password);
+      await this.userStore.login(email, password);
       this.router.navigate(['dashboard'])
     } catch (e) {
       this.loginError = true;

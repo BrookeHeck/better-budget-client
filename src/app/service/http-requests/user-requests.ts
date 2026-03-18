@@ -11,14 +11,19 @@ export class UserRequests {
 
   private readonly baseUrl = 'http://localhost:8080/api/v1/user';
 
-  public async login(email: string, password: string): Promise<User> {
+  public async login(email: string, password: string): Promise<AuthResponse> {
     const authHeader = 'Basic ' + btoa(`${email}:${password}`);
     return firstValueFrom(
-      this.http.post<User>(`${this.baseUrl}/login`, null, {headers: {Authorization: authHeader}})
+      this.http.post<AuthResponse>(`${this.baseUrl}/login`, null, {headers: {Authorization: authHeader}})
     );
   }
 
   public async register(user: User): Promise<User> {
     return firstValueFrom(this.http.post<User>(`${this.baseUrl}/register`, user));
   }
+}
+
+export type AuthResponse = {
+  token: string,
+  user: User
 }

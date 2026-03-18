@@ -24,13 +24,11 @@
         <label for="password">Password</label>
       </p-floatlabel>
 
+      @if (loginError) {
+        <p-message class="w-100">Incorrect email or password.</p-message>
+      }
+
       <p-button label="Login" (onClick)="login()" />
     </form>
-
-    @if (loginError) {
-      <div class="card">
-        <p-message>Incorrect email or password.</p-message>
-      </div>
-    }
   </p-card>
 </div>

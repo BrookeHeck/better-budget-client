@@ -3,12 +3,16 @@ import {UserStore} from '../../store/user-store';
 import {MenuItem} from 'primeng/api';
 import {Menubar} from 'primeng/menubar';
 import {Avatar} from 'primeng/avatar';
+import {Button} from 'primeng/button';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'b-header',
   imports: [
     Menubar,
-    Avatar
+    Avatar,
+    Button,
+    RouterLink
   ],
   templateUrl: './header.html',
 })
@@ -59,4 +63,8 @@ export class Header {
       routerLink: 'reports',
     }
   ];
+
+  protected logout() {
+    this.userStore.logout();
+  }
 }
