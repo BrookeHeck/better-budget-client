@@ -1,61 +1,42 @@
-<div class="flex gap-4">
-  <div class="flex flex-col gap-5 w-2/3">
-    <p-card>
-      <div class="flex justify-between items-center">
-        <h1>Accounts</h1>
-        <p-button label="Create Account" (onClick)="openForm()" />
-      </div>
-    </p-card>
-
-    <div class="flex flex-col gap-10">
-      @if (checking()?.length) {
-        <account-table
-          [accounts]="checking()"
-          title="Checking Accounts"
-          (editAccount)="setSelectedAccount($event)"
-          (deleteAccount)="deleteAccount($event)"
-        />
-      }
-
-      @if (saving()?.length) {
-        <account-table
-          [accounts]="saving()"
-          title="Saving Accounts"
-          (editAccount)="setSelectedAccount($event)"
-          (deleteAccount)="deleteAccount($event)"
-        />
-      }
-
-      @if (credit()?.length) {
-        <account-table
-          [accounts]="credit()"
-          title="Credit Accounts"
-          (editAccount)="setSelectedAccount($event)"
-          (deleteAccount)="deleteAccount($event)"
-        />
-      }
-
-      @if (loan()?.length) {
-        <account-table
-          [accounts]="loan()"
-          title="Loan Accounts"
-          (editAccount)="setSelectedAccount($event)"
-          (deleteAccount)="deleteAccount($event)"
-        />
-      }
-    </div>
+<p-card>
+  <div class="mb-8">
+    <h2>Accounts Overview</h2>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Checking', balance: checkingTotal() }">
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Saving', balance: savingTotal() }">
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Credit', balance: creditTotal() }">
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Loan', balance: loanTotal() }">
+    </ng-container>
+    <p-divider />
   </div>
 
-  <p-dialog
-    [header]="selectedAccount?.accountId ? selectedAccount.name : 'Create Account'"
-    [modal]="true"
-    [(visible)]="showForm"
-    (onHide)="closeForm()"
-    [style]="{ width: '25rem', height: '30rem' }">
-    <account-form [account]="selectedAccount" (submit)="submitForm($event)"/>
-  </p-dialog>
+  <div class="mb-5">
+    <h2>Account Totals</h2>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Assets', balance: assets() }">
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Liabilities', balance: liabilities() }">
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="accountSummary; context: { name: 'Total', balance: total() }">
+    </ng-container>
+    <p-divider />
+  </div>
+</p-card>
 
-  <p-card class="w-1/3">
-    <h2>Overview</h2>
-  </p-card>
-</div>
+
+<ng-template #accountSummary let-name="name" let-balance="balance">
+  <p-divider />
+  <div class="flex justify-between items-center">
+    <p>{{name}}</p>
+    <p>{{balance | currency: 'USD' : 'symbol' : '1.2-2' }}</p>
+  </div>
+
+</ng-template>

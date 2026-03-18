@@ -1,0 +1,61 @@
+<div class="flex gap-4">
+  <div class="flex flex-col gap-5 w-2/3">
+    <p-card>
+      <div class="flex justify-between items-center">
+        <h1>Accounts</h1>
+        <p-button label="Create Account" (onClick)="openForm()" />
+      </div>
+    </p-card>
+
+    <div class="flex flex-col gap-10">
+      @if (accountStore.checking()?.length) {
+        <account-table
+          [accounts]="accountStore.checking()"
+          title="Checking Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+
+      @if (accountStore.saving()?.length) {
+        <account-table
+          [accounts]="accountStore.saving()"
+          title="Saving Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+
+      @if (accountStore.credit()?.length) {
+        <account-table
+          [accounts]="accountStore.credit()"
+          title="Credit Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+
+      @if (accountStore.loan()?.length) {
+        <account-table
+          [accounts]="accountStore.loan()"
+          title="Loan Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+    </div>
+  </div>
+
+  <div class="w-1/3">
+    <accounts-overview />
+  </div>
+</div>
+
+<p-dialog
+  [header]="selectedAccount?.accountId ? selectedAccount.name : 'Create Account'"
+  [modal]="true"
+  [(visible)]="showForm"
+  (onHide)="closeForm()"
+  [style]="{ width: '25rem', height: '30rem' }">
+  <account-form [account]="selectedAccount" (submit)="submitForm($event)"/>
+</p-dialog>

@@ -1,88 +1,58 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
-import {Dialog} from 'primeng/dialog';
-import {Account} from '../../../model/account/Account';
-import {AccountForm} from '../account-form/account-form';
-import {Button} from 'primeng/button';
-import {AccountStore} from '../../../store/account-store';
-import {UserStore} from '../../../store/user-store';
-import {TableModule} from 'primeng/table';
-import {AccountType, AccountTypeDisplay} from '../../../model/account/account-type';
-import {AccountTable} from '../account-table/account-table';
+import {Component, computed, inject, Signal} from '@angular/core';
 import {Card} from 'primeng/card';
+import {AccountStore} from '../../../store/account-store';
+import {Divider} from 'primeng/divider';
+import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 
 @Component({
   selector: 'accounts-overview',
   imports: [
-    Dialog,
-    AccountForm,
-    Button,
-    TableModule,
-    AccountTable,
-    Card
+    Card,
+    Divider,
+    NgTemplateOutlet,
+    CurrencyPipe,
   ],
-  templateUrl: './accounts-overview.html',
+  templateUrl: 'accounts-overview.html'
 })
-export class AccountsOverview implements OnInit {
-  protected accountStore = inject(AccountStore);
-  private userStore = inject(UserStore);
+export class AccountsOverview {
+  private accountStore = inject(AccountStore);
 
-  protected readonly AccountTypeDisplay = AccountTypeDisplay;
+  protected checkingTotal: Signal<number> = computed(() => (
+    this.accountStore.checking().reduce((accum, a) => (
+      accum + a.balance
+    ), 0)
+  ));
 
-  showForm: boolean = false;
-  selectedAccount: Account = new Account();
+  protected savingTotal: Signal<number> = computed(() => (
+    this.accountStore.saving().reduce((accum, a) => (
+      accum + a.balance
+    ), 0)
+  ))
 
-  checking: Signal<Account[]> = computed(() => this.accountStore.accounts().filter(a => a.accountType === AccountType.CHECKING));
-  saving: Signal<Account[]> = computed(() => this.accountStore.accounts().filter(a => a.accountType === AccountType.SAVING));
-  loan: Signal<Account[]> = computed(() => this.accountStore.accounts().filter(a => a.accountType === AccountType.LOAN));
-  credit: Signal<Account[]> = computed(() => this.accountStore.accounts().filter(a => a.accountType === AccountType.CREDIT));
+  protected creditTotal: Signal<number> = computed(() => (
+    this.accountStore.credit().reduce((accum, a) => (
+      accum + a.balance
+    ), 0)
+  ))
 
-  ngOnInit() {
-    this.accountStore.loadAllAccounts(this.userStore.user().userId);
-  }
+  protected loanTotal: Signal<number> = computed(() => (
+    this.accountStore.loan().reduce((accum, a) => (
+      accum + a.balance
+    ), 0)
+  ));
 
-  openForm() {
-    this.showForm = true
-  }
+  protected assets: Signal<number> = computed(() => (
+    this.checkingTotal() + this.savingTotal()
+  ));
 
-  closeForm() {
-    this.showForm = false;
-    this.selectedAccount = new Account();
-  }
+  protected liabilities: Signal<number> = computed(() => (
+    this.creditTotal() + this.loanTotal()
+  ));
 
-  setSelectedAccount(account: Account) {
-    this.selectedAccount = account;
-    this.openForm()
-  }
+  protected total: Signal<number> = computed(() => (
+    this.assets() + this.liabilities()
+  ));
 
-  submitForm(account: Account) {
-    account.userId = this.userStore.user().userId;
-    this.selectedAccount.accountId ? this.updateAccount(account) : this.createAccount(account);
-  }
 
-  createAccount(account: Account) {
-    try {
-      this.accountStore.createAccount(account);
-      this.closeForm()
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
-  updateAccount(account: Account) {
-    try {
-      account.accountId = this.selectedAccount.accountId;
-      this.accountStore.updateAccount(account);
-      this.closeForm()
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  deleteAccount(accountId: number) {
-    try {
-      this.accountStore.deleteAccount(accountId);
-    } catch (e) {
-      console.log(e);
-    }
-  }
 }

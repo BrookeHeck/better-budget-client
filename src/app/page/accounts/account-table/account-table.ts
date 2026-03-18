@@ -4,13 +4,15 @@ import {TableModule} from 'primeng/table';
 import {Button} from 'primeng/button';
 import {AccountTypeDisplay} from '../../../model/account/account-type';
 import {Card} from 'primeng/card';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'account-table',
   imports: [
     TableModule,
     Button,
-    Card
+    Card,
+    CurrencyPipe
   ],
   templateUrl: 'account-table.html'
 })

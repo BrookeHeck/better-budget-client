@@ -1,6 +1,6 @@
 import {Account} from '../model/account/Account';
 import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
-import {inject} from '@angular/core';
+import {computed, inject} from '@angular/core';
 import {AccountRequests} from '../service/http-requests/account-requests';
 import {AccountType} from '../model/account/account-type';
 
@@ -17,6 +17,12 @@ const initialState: AccountState = {
 export const AccountStore = signalStore(
   {providedIn: "root"},
   withState(initialState),
+  withComputed(store => ({
+    checking: computed(() => store.accounts().filter(a => a.accountType === AccountType.CHECKING)),
+    saving: computed(() => store.accounts().filter(a => a.accountType === AccountType.SAVING)),
+    credit: computed(() => store.accounts().filter(a => a.accountType === AccountType.CREDIT)),
+    loan: computed(() => store.accounts().filter(a => a.accountType === AccountType.LOAN)),
+  })),
   withMethods((store, accountRequestService = inject(AccountRequests)) => ({
     async loadAllAccounts(userId: number) {
       patchState(store, {loading: true});
