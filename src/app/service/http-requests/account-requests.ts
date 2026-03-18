@@ -10,7 +10,7 @@ export class AccountRequests {
   private readonly endpoint = 'account';
 
   public getUserAccounts(userId: number): Promise<Account[]> {
-    return this.http.get<Account[]>(`${this.endpoint}/${userId}`);
+    return this.http.get<Account[]>(`${this.endpoint}/user/${userId}`);
   }
 
   public getAccount(accountId: number): Promise<Account> {

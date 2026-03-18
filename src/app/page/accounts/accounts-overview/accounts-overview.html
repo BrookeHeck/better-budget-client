@@ -1,7 +1,61 @@
-<h1>Account Overview</h1>
+<div class="flex gap-4">
+  <div class="flex flex-col gap-5 w-2/3">
+    <p-card>
+      <div class="flex justify-between items-center">
+        <h1>Accounts</h1>
+        <p-button label="Create Account" (onClick)="openForm()" />
+      </div>
+    </p-card>
 
-<p-button label="Create Account" (onClick)="openForm()" />
+    <div class="flex flex-col gap-10">
+      @if (checking()?.length) {
+        <account-table
+          [accounts]="checking()"
+          title="Checking Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
 
-<p-dialog header="Edit Account" [modal]="true" [(visible)]="showForm" [style]="{ width: '25rem' }">
-  <account-form [account]="selectedAccount" (submit)="createAccount($event)"/>
-</p-dialog>
+      @if (saving()?.length) {
+        <account-table
+          [accounts]="saving()"
+          title="Saving Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+
+      @if (credit()?.length) {
+        <account-table
+          [accounts]="credit()"
+          title="Credit Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+
+      @if (loan()?.length) {
+        <account-table
+          [accounts]="loan()"
+          title="Loan Accounts"
+          (editAccount)="setSelectedAccount($event)"
+          (deleteAccount)="deleteAccount($event)"
+        />
+      }
+    </div>
+  </div>
+
+  <p-dialog
+    [header]="selectedAccount?.accountId ? selectedAccount.name : 'Create Account'"
+    [modal]="true"
+    [(visible)]="showForm"
+    (onHide)="closeForm()"
+    [style]="{ width: '25rem', height: '30rem' }">
+    <account-form [account]="selectedAccount" (submit)="submitForm($event)"/>
+  </p-dialog>
+
+  <p-card class="w-1/3">
+    <h2>Overview</h2>
+  </p-card>
+</div>

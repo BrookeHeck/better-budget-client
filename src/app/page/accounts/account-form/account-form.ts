@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Account} from '../../../model/account/Account';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {AccountType, AccountTypeDisplay} from '../../../model/account/account-type';
 import { InputNumberModule } from 'primeng/inputnumber';
-import {Card} from 'primeng/card';
 import {FloatLabel} from 'primeng/floatlabel';
 import {Button} from 'primeng/button';
 import {InputText} from 'primeng/inputtext';
@@ -12,10 +11,10 @@ import {Select} from 'primeng/select';
 @Component({
   standalone: true,
   selector: 'account-form',
-  imports: [InputNumberModule, ReactiveFormsModule, Card, FloatLabel, Button, InputText, Select],
+  imports: [InputNumberModule, ReactiveFormsModule, FloatLabel, Button, InputText, Select],
   templateUrl: './account-form.html'
 })
-export class AccountForm implements OnInit{
+export class AccountForm implements OnChanges {
   @Input() account: Account;
 
   @Output() submit: EventEmitter<Account> = new EventEmitter();
@@ -26,14 +25,17 @@ export class AccountForm implements OnInit{
     label: AccountTypeDisplay[type]
   }));
 
-  ngOnInit() {
-    this.form = new FormGroup({
-      name: new FormControl<string>(this.account.name),
-      balance: new FormControl<number>(this.account.balance),
-      accountType: new FormControl<AccountType>(this.account.accountType)
-    });
-    if(this.account.accountId) {
-      this.form.controls['accountType'].disable();
+  ngOnChanges(changes:SimpleChanges) {
+    if(changes['account']) {
+      const account = changes['account'].currentValue;
+      this.form = new FormGroup({
+        name: new FormControl<string>(account.name),
+        balance: new FormControl<number>(account.balance),
+        accountType: new FormControl<AccountType>(account.accountType)
+      });
+      if(account.accountId) {
+        this.form.controls['accountType'].disable();
+      }
     }
   }
 

@@ -1,7 +1,6 @@
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
-  isDevMode,
   provideAppInitializer,
   inject
 } from '@angular/core';
@@ -9,8 +8,9 @@ import {ActivatedRoute, provideRouter, Router} from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { routes } from './app.routes';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {UserStore} from './store/user-store';
+import {authInterceptor} from './interceptor/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +24,9 @@ export const appConfig: ApplicationConfig = {
             }
         }
     }),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
     provideAppInitializer(() => {
       const userStore = inject(UserStore);
       const router = inject(Router);

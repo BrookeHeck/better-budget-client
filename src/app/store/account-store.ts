@@ -1,7 +1,8 @@
 import {Account} from '../model/account/Account';
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
 import {inject} from '@angular/core';
 import {AccountRequests} from '../service/http-requests/account-requests';
+import {AccountType} from '../model/account/account-type';
 
 type AccountState = {
   accounts: Account[],
@@ -13,7 +14,7 @@ const initialState: AccountState = {
   loading: false,
 };
 
-const accountStore = signalStore(
+export const AccountStore = signalStore(
   {providedIn: "root"},
   withState(initialState),
   withMethods((store, accountRequestService = inject(AccountRequests)) => ({

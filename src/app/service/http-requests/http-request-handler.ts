@@ -8,7 +8,7 @@ import {firstValueFrom} from 'rxjs';
 export class HttpRequestHandler {
   private readonly http = inject(HttpClient);
 
-  private readonly baseUrl = 'http://localhost:8080/';
+  private readonly baseUrl = 'http://localhost:8080/api/v1/';
 
   public get<R>(endpoint: string, params?: HttpParams): Promise<R> {
     return params ?

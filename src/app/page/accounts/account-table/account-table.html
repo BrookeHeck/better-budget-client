@@ -1,0 +1,28 @@
+<p-card>
+  <h2>{{title}}</h2>
+  <p-table [value]="accounts">
+    <ng-template #header>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-account>
+      <tr>
+        <td>{{account.name}}</td>
+        <td>{{AccountTypeDisplay[account.accountType]}}</td>
+        <td>{{account.balance}}</td>
+        <td>
+          <p-button icon="pi pi-pencil" [rounded]="true" (onClick)="editAccount.emit(account)" />
+        </td>
+        <td>
+          <p-button icon="pi pi-trash" [rounded]="true" (onClick)="deleteAccount.emit(account.accountId)" severity="danger" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</p-card>
