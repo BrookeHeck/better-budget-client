@@ -11,7 +11,7 @@
     <ng-template #body let-transaction>
       <tr>
         <td>{{transaction.category}}</td>
-        <td>{{transaction.amount | currency: 'USD' : 'symbol' : '1.2-2'}}</td>
+        <td>{{transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
         <td>{{transaction.description}}</td>
         <td>{{transaction.dateOfTransaction}}</td>
       </tr>

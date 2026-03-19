@@ -1,8 +1,54 @@
 <div class="flex gap-4">
-  <div class="w-1/4">
-    <page-header title="Filter" />
+  <div class="w-1/4 flex flex-col gap-4">
+    <page-header title="Filters" />
+    <p-card>
+      <form class="flex flex-col justify-start items-start gap-6">
+        <div class="flex flex-col gap-2">
+          <p class="font-bold">Filter by Date</p>
+          <p-floatlabel>
+            <p-date-picker inputId="startDate" class="w-75" />
+            <label for="startDate">Start Date</label>
+          </p-floatlabel>
+          <p-floatlabel>
+            <p-date-picker inputId="endDate" class="w-75" />
+            <label for="endDate">End Date</label>
+          </p-floatlabel>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-bold">Filter by Amount</p>
+          <p-floatlabel>
+            <p-input-number
+              inputId="min-amount"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              class="w-75"
+            />
+            <label for="min-amount">Minimum Amount</label>
+          </p-floatlabel>
+          <p-floatlabel>
+            <p-input-number
+              inputId="max-amount"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              class="w-75"
+            />
+            <label for="max-amount">Maximum Amount</label>
+          </p-floatlabel>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-bold">Filter by Category</p>
+          <p-floatlabel>
+            <input pInputText type="text" class="w-75" id="category">
+            <label for="category">Category</label>
+          </p-floatlabel>
+        </div>
+        <p-button label="Apply Filter" />
+      </form>
+    </p-card>
   </div>
-  <div class="w-3/4">
+  <div class="w-3/4 flex flex-col justify-center-items-center gap-4">
     <ng-template #headerEnd>
       <p-button label="Create Transaction" routerLink="/create-transaction" />
     </ng-template>

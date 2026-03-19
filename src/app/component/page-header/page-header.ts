@@ -12,6 +12,7 @@ import {RouterLink} from '@angular/router';
     Button,
     RouterLink
   ],
+  standalone: true,
   templateUrl: 'page-header.html'
 })
 export class PageHeader {
