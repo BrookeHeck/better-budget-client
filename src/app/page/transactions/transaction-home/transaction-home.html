@@ -1,15 +1,11 @@
 <div class="flex gap-4">
   <div class="w-1/3">
-    <p-card>
-      <h2>Sort & Filter</h2>
-    </p-card>
+    <page-header title="Sort & Filter" />
   </div>
   <div class="w-2/3">
-    <p-card>
-      <div class="flex justify-between items-center">
-        <h1>Transactions</h1>
-        <p-button label="Create Transaction" />
-      </div>
-    </p-card>
+    <ng-template #headerEnd>
+      <p-button label="Create Transaction" routerLink="/create-transaction" />
+    </ng-template>
+    <page-header title="Transactions" [end]="headerEnd" />
   </div>
 </div>

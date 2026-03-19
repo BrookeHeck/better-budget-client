@@ -1,11 +1,9 @@
 <div class="flex gap-4">
   <div class="flex flex-col gap-5 w-2/3">
-    <p-card>
-      <div class="flex justify-between items-center">
-        <h1>Accounts</h1>
-        <p-button label="Create Account" (onClick)="openForm()" />
-      </div>
-    </p-card>
+    <ng-template #headerEnd>
+      <p-button label="Create Account" (onClick)="openForm()" />
+    </ng-template>
+    <page-header title="Accounts" [end]="headerEnd" />
 
     <div class="flex flex-col gap-10">
       @if (accountStore.checking()?.length) {

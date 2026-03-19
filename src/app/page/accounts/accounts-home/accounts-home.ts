@@ -6,10 +6,10 @@ import {Button} from 'primeng/button';
 import {AccountStore} from '../../../store/account-store';
 import {UserStore} from '../../../store/user-store';
 import {TableModule} from 'primeng/table';
-import {AccountType, AccountTypeDisplay} from '../../../model/account/account-type';
+import {AccountTypeDisplay} from '../../../model/account/account-type';
 import {AccountTable} from '../account-table/account-table';
-import {Card} from 'primeng/card';
 import {AccountsOverview} from '../accounts-overview/accounts-overview';
+import {PageHeader} from '../../../component/page-header/page-header';
 
 @Component({
   selector: 'accounts-home',
@@ -19,8 +19,8 @@ import {AccountsOverview} from '../accounts-overview/accounts-overview';
     Button,
     TableModule,
     AccountTable,
-    Card,
-    AccountsOverview
+    AccountsOverview,
+    PageHeader
   ],
   templateUrl: './accounts-home.html',
 })

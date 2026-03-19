@@ -7,16 +7,16 @@ import {Button} from 'primeng/button';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'b-header',
+  selector: 'budget-menu',
   imports: [
     Menubar,
     Avatar,
     Button,
     RouterLink
   ],
-  templateUrl: './header.html',
+  templateUrl: './budget-menu.html',
 })
-export class Header {
+export class BudgetMenu {
   protected readonly userStore = inject(UserStore)
 
   protected menuItems: Signal<MenuItem[]> = computed(() => {

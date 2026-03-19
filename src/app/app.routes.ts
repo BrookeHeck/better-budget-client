@@ -7,6 +7,7 @@ import {TransactionHome} from './page/transactions/transaction-home/transaction-
 import {RecurringPayments} from './page/recurring-payments/recurring-payments';
 import {Reports} from './page/reports/reports';
 import {BudgetHome} from './page/budget/budget-home';
+import {CreateTransaction} from './page/transactions/create-transaction/create-transaction';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'accounts', component: AccountsHome},
   { path: 'budget', component: BudgetHome},
   { path: 'transactions', component: TransactionHome},
+  { path: 'create-transaction', component: CreateTransaction},
   { path: 'recurring-payments', component: RecurringPayments},
   { path: 'reports', component: Reports}
 ];
