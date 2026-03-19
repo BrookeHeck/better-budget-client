@@ -29,7 +29,7 @@ export class TransactionRequests {
   }
 
   private getTransactions(userId: number, params: HttpParams): Promise<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.endpoint}/${userId}`, params);
+    return this.http.get<Transaction[]>(`${this.endpoint}/user/${userId}`, params);
   }
 
   public getTransactionsWithinDateRange(userId: number, startDate?: Date, endDate?: Date): Promise<Transaction[]> {
@@ -39,9 +39,9 @@ export class TransactionRequests {
     }
     const startDateParam: string = this.dateService.formatDate(startDate);
     const endDateParam: string = this.dateService.formatDate(endDate);
-    const params: HttpParams = new HttpParams();
-    params.set('startDate', startDateParam);
-    params.set('endDate', endDateParam);
+    const params: HttpParams = new HttpParams()
+      .set('startDate', startDateParam)
+      .set('endDate', endDateParam);
     return this.getTransactions(userId, params);
   }
 

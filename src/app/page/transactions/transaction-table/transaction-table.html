@@ -1,0 +1,20 @@
+<p-card>
+  <p-table [value]="transactions">
+    <ng-template #header>
+      <tr>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date of Transaction</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-transaction>
+      <tr>
+        <td>{{transaction.category}}</td>
+        <td>{{transaction.amount | currency: 'USD' : 'symbol' : '1.2-2'}}</td>
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.dateOfTransaction}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
