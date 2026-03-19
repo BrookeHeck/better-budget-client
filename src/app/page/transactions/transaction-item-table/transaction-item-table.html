@@ -1,0 +1,69 @@
+<p-table [value]="transactionItems" dataKey="transactionItemId" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template #header>
+    <tr>
+      <th style="width:35%">Item Name</th>
+      <th style="width:35%">Price</th>
+      <th style="width:20%">
+        <button pButton pRipple type="button"  text severity="secondary"
+                icon="pi pi-plus"
+                [disabled]="isAddingItem"
+
+                (click)="onRowCreate()" >
+          Add Item
+        </button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-transactionItem let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="transactionItem">
+      <td>
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="transactionItem.category" />
+          </ng-template>
+          <ng-template #output>
+            {{ transactionItem.category }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="transactionItem.amount" />
+          </ng-template>
+          <ng-template #output>
+            {{ transactionItem.amount | currency: 'USD' : 'symbol'  }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <div class="flex items-center justify-center gap-2">
+          @if (!editing) {
+            <button pButton pRipple type="button" pInitEditableRow text rounded severity="secondary"
+                    icon="pi pi-pencil"
+                    (click)="onRowEditInit(transactionItem)">
+            </button>
+          }
+          @if (!editing) {
+            <button pButton pRipple type="button" text rounded severity="danger"
+                    icon="pi pi-trash"
+                    (click)="onRowDelete(transactionItem)">
+            </button>
+          }
+          @if (editing) {
+            <button  pButton pRipple type="button" pSaveEditableRow text rounded severity="secondary"
+                    icon="pi pi-check"
+                    (click)="onRowEditSave(transactionItem)"
+                    [disabled]="!transactionItem.category || !transactionItem.amount" >
+            </button>
+          }
+          @if (editing) {
+            <button pButton pRipple type="button" pCancelEditableRow text rounded severity="secondary"
+                    icon="pi pi-times"
+                    (click)="onRowEditCancel(transactionItem, ri)" ></button>
+          }
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
     NgTemplateOutlet,
     FormsModule
   ],
+  standalone: true,
   templateUrl: 'account-radio-list.html'
 })
 export class AccountRadioList {

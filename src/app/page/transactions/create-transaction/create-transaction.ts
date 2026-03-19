@@ -15,6 +15,7 @@ import {InputNumber} from 'primeng/inputnumber';
 import {Textarea} from 'primeng/textarea';
 import {InputText} from 'primeng/inputtext';
 import {DatePicker} from 'primeng/datepicker';
+import {TransactionItemTable} from '../transaction-item-table/transaction-item-table';
 
 @Component({
   selector: 'create-transaction',
@@ -35,7 +36,9 @@ import {DatePicker} from 'primeng/datepicker';
     Textarea,
     InputText,
     DatePicker,
+    TransactionItemTable,
   ],
+  standalone: true,
   templateUrl: 'create-transaction.html'
 })
 export class CreateTransaction implements OnInit {
@@ -58,6 +61,7 @@ export class CreateTransaction implements OnInit {
 
   ngOnInit() {
     this.accountStore.loadAllAccounts(this.userStore.user().userId);
+    this.createdTransaction = this.transactionStore.transactions()[0];
   }
 
   setSelectedAccount(account: Account) {
@@ -65,11 +69,11 @@ export class CreateTransaction implements OnInit {
   }
 
   async createTransaction() {
-    const {amount, description, category, dateOfTransaction } = this.detailForm.value;
-    const userId = this.userStore.user().userId;
-    this.createdTransaction = await this.transactionStore.createTransaction(
-      {amount, description, category, dateOfTransaction, userId, accountId: this.accountId, transactionId: null}
-    );
+    // const {amount, description, category, dateOfTransaction } = this.detailForm.value;
+    // const userId = this.userStore.user().userId;
+    // this.createdTransaction = await this.transactionStore.createTransaction(
+    //   {amount, description, category, dateOfTransaction, userId, accountId: this.accountId, transactionId: null}
+    // );
   }
 
 }

@@ -22,6 +22,7 @@ export class TransactionItemRequests {
   }
 
   public deleteTransactionItem(transactionItemId: number): Promise<void> {
+    console.log(transactionItemId);
     return this.http.delete(`${this.endpoint}/${transactionItemId}`);
   }
 
