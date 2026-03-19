@@ -22,12 +22,13 @@ export const TransactionStore = signalStore(
       const transactions = await transactionService.getTransactionsWithinDateRange(userId, startDate, endDate);
       patchState(store, {loading: false, transactions});
     },
-    async createTransaction(transaction: Transaction) {
+    async createTransaction(transaction: Transaction): Promise<Transaction> {
       patchState(store, {loading: true});
       const created = await transactionService.createTransaction(transaction);
       patchState(store, state => ({
         loading: false, transactions: [...state.transactions, created]
       }))
+      return created;
     },
     async updateTransaction(transaction: Transaction) {
       patchState(store, {loading: true});

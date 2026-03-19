@@ -5,11 +5,16 @@ import {Button} from 'primeng/button';
 import {Card} from 'primeng/card';
 import {AccountStore} from '../../../store/account-store';
 import {TransactionStore} from '../../../store/transaction-store';
-import {Message} from 'primeng/message';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserStore} from '../../../store/user-store';
 import {Account} from '../../../model/account/Account';
 import {AccountRadioList} from '../../../component/account-radio-list/account-radio-list';
+import {Transaction} from '../../../model/transaction/transaction';
+import {FloatLabel} from 'primeng/floatlabel';
+import {InputNumber} from 'primeng/inputnumber';
+import {Textarea} from 'primeng/textarea';
+import {InputText} from 'primeng/inputtext';
+import {DatePicker} from 'primeng/datepicker';
 
 @Component({
   selector: 'create-transaction',
@@ -22,9 +27,14 @@ import {AccountRadioList} from '../../../component/account-radio-list/account-ra
     StepPanel,
     Button,
     Card,
-    Message,
     FormsModule,
     AccountRadioList,
+    ReactiveFormsModule,
+    FloatLabel,
+    InputNumber,
+    Textarea,
+    InputText,
+    DatePicker,
   ],
   templateUrl: 'create-transaction.html'
 })
@@ -33,17 +43,33 @@ export class CreateTransaction implements OnInit {
   protected transactionStore = inject(TransactionStore);
   private userStore = inject(UserStore);
 
-  protected selectedAccount: number;
+  protected accountId: number;
   protected accounts: Signal<Account[][]> = computed(() =>
     [this.accountStore.checking(), this.accountStore.saving(), this.accountStore.credit()]
   );
+
+  protected detailForm = new FormGroup({
+    amount: new FormControl<number>(null),
+    description: new FormControl<string>(null),
+    category: new FormControl<string>(null),
+    dateOfTransaction: new FormControl<Date>(null)
+  });
+  createdTransaction: Transaction;
 
   ngOnInit() {
     this.accountStore.loadAllAccounts(this.userStore.user().userId);
   }
 
   setSelectedAccount(account: Account) {
-    this.selectedAccount = account.accountId;
+    this.accountId = account.accountId;
+  }
+
+  async createTransaction() {
+    const {amount, description, category, dateOfTransaction } = this.detailForm.value;
+    const userId = this.userStore.user().userId;
+    this.createdTransaction = await this.transactionStore.createTransaction(
+      {amount, description, category, dateOfTransaction, userId, accountId: this.accountId, transactionId: null}
+    );
   }
 
 }
