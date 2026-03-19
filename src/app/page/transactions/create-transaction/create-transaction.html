@@ -15,42 +15,11 @@
           <p-step-panels>
             <p-step-panel [value]="1">
               <ng-template #content let-activateCallback="activateCallback">
-                <div class="flex gap-10 justify-center items-start">
-                  @if (accountStore.checking()) {
-                    <div class="flex flex-col justify-center items-start gap-4">
-                      <ul>
-                        <ng-container>
-                          <ng-container
-                            *ngTemplateOutlet="radioList; context: { list : accountStore.checking() }">
-                          </ng-container>
-                        </ng-container>
-                      </ul>
-                    </div>
-                  }
-                  @if (accountStore.saving()) {
-                    <div class="flex flex-col justify-center items-start gap-4">
-                      <ul>
-                        <ng-container>
-                          <ng-container
-                            *ngTemplateOutlet="radioList; context: { list : accountStore.saving() }">
-                          </ng-container>
-                        </ng-container>
-                      </ul>
-                    </div>
-                  }
-                  @if (accountStore.credit()) {
-                    <div class="flex flex-col justify-center items-start gap-4">
-
-                      <ul>
-                        <ng-container>
-                          <ng-container
-                            *ngTemplateOutlet="radioList; context: { list : accountStore.credit() }">
-                          </ng-container>
-                        </ng-container>
-                      </ul>
-                    </div>
-                  }
-                </div>
+                <account-radio-list
+                  class="flex justify-between items-start mx-8"
+                  [accounts]="accounts()"
+                  [selectedAccount]="selectedAccount"
+                  (accountSelect)="setSelectedAccount($event)" />
                 <div class="flex pt-6 justify-end">
                   <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                 </div>
@@ -83,12 +52,3 @@
     </p-card>
   </div>
 }
-
-<ng-template #radioList let-list="list" >
-  @for (item of list; track item.id) {
-    <li class="mb-3">
-      <p-radio-button [inputId]="item.accountId" name="account" [value]="item.accountId" [(ngModel)]="selectedAccount" />
-      <label [for]="item.accountId" class="ml-2">{{item.name}}</label>
-    </li>
-  }
-</ng-template>
