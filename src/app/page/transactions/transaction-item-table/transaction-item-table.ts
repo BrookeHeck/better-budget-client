@@ -8,6 +8,7 @@ import {ButtonDirective} from 'primeng/button';
 import {Ripple} from 'primeng/ripple';
 import {Transaction} from '../../../model/transaction/transaction';
 import {TransactionItemRequests} from '../../../service/http-requests/transaction-item-requests';
+import {InputNumber} from 'primeng/inputnumber';
 
 @Component({
   selector: 'transaction-item-table',
@@ -17,7 +18,8 @@ import {TransactionItemRequests} from '../../../service/http-requests/transactio
     CurrencyPipe,
     FormsModule,
     ButtonDirective,
-    Ripple
+    Ripple,
+    InputNumber
   ],
   standalone: true,
   templateUrl: 'transaction-item-table.html'

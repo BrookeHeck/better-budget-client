@@ -8,6 +8,7 @@ import {RecurringPayments} from './page/recurring-payments/recurring-payments';
 import {Reports} from './page/reports/reports';
 import {BudgetHome} from './page/budget/budget-home';
 import {CreateTransaction} from './page/transactions/create-transaction/create-transaction';
+import {TransactionDetail} from './page/transactions/transaction-detail/transaction-detail';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'budget', component: BudgetHome},
   { path: 'transactions', component: TransactionHome},
   { path: 'create-transaction', component: CreateTransaction},
+  { path: 'transaction-detail/:transactionId', component: TransactionDetail},
   { path: 'recurring-payments', component: RecurringPayments},
   { path: 'reports', component: Reports}
 ];

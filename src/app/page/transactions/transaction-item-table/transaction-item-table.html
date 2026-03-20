@@ -29,10 +29,16 @@
       <td>
         <p-cellEditor>
           <ng-template #input>
-            <input pInputText type="text" [(ngModel)]="transactionItem.amount" />
+            <p-input-number
+              [(ngModel)]="transaction.amount"
+              inputId="account-balance"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+            />
           </ng-template>
           <ng-template #output>
-            {{ transactionItem.amount | currency: 'USD' : 'symbol'  }}
+            {{ transactionItem.amount | currency: 'USD' : 'symbol' : '1.2-2'  }}
           </ng-template>
         </p-cellEditor>
       </td>

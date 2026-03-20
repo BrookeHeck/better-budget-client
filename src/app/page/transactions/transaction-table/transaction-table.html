@@ -2,6 +2,7 @@
   <p-table [value]="transactions">
     <ng-template #header>
       <tr>
+        <th>Details</th>
         <th>Category</th>
         <th>Amount</th>
         <th>Description</th>
@@ -10,6 +11,9 @@
     </ng-template>
     <ng-template #body let-transaction>
       <tr>
+        <td><p-button
+          icon="pi pi-info" [rounded]="true" [outlined]="true" [routerLink]="'/transaction-detail/' + transaction.transactionId" />
+        </td>
         <td>{{transaction.category}}</td>
         <td>{{transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
         <td>{{transaction.description}}</td>

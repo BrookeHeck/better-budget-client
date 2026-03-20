@@ -1,0 +1,35 @@
+@if (transaction()) {
+  <page-header title="Transaction Details" />
+  <div class="flex gap-4 mt-4">
+    <div class="w-1/4">
+      <p-card class="flex flex-col gap-4">
+        <h2 class="font-bold">Details</h2>
+        <p-divider/>
+        <div class="flex justify-between items-center">
+          <p>Category</p>
+          <p>{{transaction().category }}</p>
+        </div>
+        <p-divider />
+        <div class="flex justify-between items-center">
+          <p>Amount</p>
+          <p>{{transaction().amount }}</p>
+        </div>
+        <p-divider />
+        <div class="flex justify-between items-center">
+          <p>Description</p>
+          <p>{{transaction().description }}</p>
+        </div>
+        <p-divider />
+        <div class="flex justify-between items-center">
+          <p>Date</p>
+          <p>{{transaction().dateOfTransaction }}</p>
+        </div>
+      </p-card>
+    </div>
+    <p-card class="w-3/4">
+      <h2>Transaction Items</h2>
+      <transaction-item-table [transaction]="transaction()" [transactionItems]="transactionItems()" />
+    </p-card>
+  </div>
+
+}

@@ -1,0 +1,32 @@
+<form class="flex flex-col justify-center items-center gap-5" [formGroup]="form" (ngSubmit)="submitTransaction($event)">
+  <p-floatlabel>
+    <p-input-number
+      formControlName="amount"
+      inputId="transaction-amount"
+      mode="decimal"
+      [minFractionDigits]="2"
+      [maxFractionDigits]="2"
+      class="w-75"
+    />
+    <label for="transaction-amount">Transaction Amount</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <textarea class="w-75" rows="3" cols="30" pTextarea formControlName="description" id="description"></textarea>
+    <label for="description">Description</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <input pInputText type="text" class="w-75" id="category" formControlName="category">
+    <label for="category">Category</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <p-date-picker formControlName="dateOfTransaction" inputId="date" class="w-75" />
+    <label for="date">Date of Transaction</label>
+  </p-floatlabel>
+  @if (buttonTemplate) {
+    <ng-container
+      *ngTemplateOutlet="buttonTemplate;">
+    </ng-container>
+  } @else {
+    <p-button label="Submit" icon="pi pi-arrow-right" type="submit" />
+  }
+</form>

@@ -3,13 +3,17 @@ import {Transaction} from '../../../model/transaction/transaction';
 import {Card} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {CurrencyPipe} from '@angular/common';
+import {Button} from 'primeng/button';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'transaction-table',
   imports: [
     Card,
     TableModule,
-    CurrencyPipe
+    CurrencyPipe,
+    Button,
+    RouterLink
   ],
   standalone: true,
   templateUrl: 'transaction-table.html'
