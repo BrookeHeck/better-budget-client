@@ -9,8 +9,8 @@ import {Transaction} from '../../../model/transaction/transaction';
 import {TransactionItem} from '../../../model/transaction/transactionItem';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {switchMap} from 'rxjs';
-import {Divider} from 'primeng/divider';
 import {UserStore} from '../../../store/user-store';
+import {TransactionForm} from '../transaction-form/transaction-form';
 
 @Component({
   selector: 'transaction-detail',
@@ -18,7 +18,7 @@ import {UserStore} from '../../../store/user-store';
     PageHeader,
     Card,
     TransactionItemTable,
-    Divider
+    TransactionForm
   ],
   templateUrl: 'transaction-detail.html'
 })
@@ -43,6 +43,10 @@ export class TransactionDetail implements OnInit {
     }
     const id = this.route.snapshot.params['transactionId'];
     this.transactionId.update(() => Number(id));
+  }
+
+  updateTransaction(transaction: Transaction) {
+    this.transactionStore.updateTransaction(transaction);
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {FloatLabel} from 'primeng/floatlabel';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {InputNumber} from 'primeng/inputnumber';
@@ -23,18 +23,23 @@ import {Textarea} from 'primeng/textarea';
   ],
   templateUrl: 'transaction-form.html',
 })
-export class TransactionForm {
+export class TransactionForm implements OnInit{
   @Input() transaction: Transaction;
   @Input() buttonTemplate: TemplateRef<any>;
 
   @Output() submit: EventEmitter<Transaction> = new EventEmitter();
 
-  protected form = new FormGroup({
-    amount: new FormControl<number>(null),
-    description: new FormControl<string>(null),
-    category: new FormControl<string>(null),
-    dateOfTransaction: new FormControl<Date>(null)
-  });
+  protected form;
+
+  ngOnInit() {
+    const date = this.transaction.dateOfTransaction ? new Date(this.transaction.dateOfTransaction) : null;
+    this.form = new FormGroup({
+      amount: new FormControl<number>(this.transaction.amount),
+      description: new FormControl<string>(this.transaction.description),
+      category: new FormControl<string>(this.transaction.category),
+      dateOfTransaction: new FormControl<Date>(date)
+    });
+  }
 
   submitTransaction(event: any) {
     event.preventDefault();
