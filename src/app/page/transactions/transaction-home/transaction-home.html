@@ -52,7 +52,7 @@
     <ng-template #headerEnd>
       <div>
         <p-button label="Create Payment" routerLink="/create-payment" [outlined]="true" severity="danger" [raised]="true" />
-        <p-button label="Create Deposit" [outlined]="true" class="ml-4" [raised]="true" (onClick)="openDepositDialog()" />
+        <p-button label="Create Deposit" routerLink="/create-deposit" [outlined]="true" class="ml-4" [raised]="true" />
       </div>
     </ng-template>
     <page-header title="Transactions" [end]="headerEnd" />
@@ -60,7 +60,3 @@
     <transaction-table [transactions]="tableData()" />
   </div>
 </div>
-
-<p-dialog header="Create Deposit" [(visible)]="showDepositDialog" [style]="{ width: '40%', height: '40rem' }">
-  <create-deposit />
-</p-dialog>

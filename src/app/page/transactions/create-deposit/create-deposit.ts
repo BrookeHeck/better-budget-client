@@ -8,12 +8,17 @@ import {TransactionForm} from '../transaction-form/transaction-form';
 import {Transaction} from '../../../model/transaction/transaction';
 import {TransactionType} from '../../../model/transaction/transaction-type';
 import {UserStore} from '../../../store/user-store';
+import {Card} from 'primeng/card';
+import {PageHeader} from '../../../component/page-header/page-header';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'create-deposit',
   imports: [
     AccountRadioList,
-    TransactionForm
+    TransactionForm,
+    Card,
+    PageHeader
   ],
   templateUrl: 'create-deposit.html'
 })
@@ -21,6 +26,7 @@ export class CreateDeposit {
   private readonly transactionStore = inject(TransactionStore);
   private readonly accountStore = inject(AccountStore);
   private readonly userStore = inject(UserStore);
+  private readonly router = inject(Router);
 
   protected accountId: number;
   protected transaction: Transaction = new Transaction();
@@ -35,5 +41,6 @@ export class CreateDeposit {
     transaction.transactionType = TransactionType.DEPOSIT;
     this.transaction = await this.transactionStore.createTransaction(transaction);
     this.accountStore.updateAccountBalance(this.transaction.accountId, this.transaction.amount);
+    this.router.navigate(['/transactions']);
   }
 }

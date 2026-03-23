@@ -10,8 +10,6 @@ import {DatePicker} from 'primeng/datepicker';
 import {InputNumber} from 'primeng/inputnumber';
 import {InputText} from 'primeng/inputtext';
 import {Card} from 'primeng/card';
-import {Dialog} from 'primeng/dialog';
-import {CreateDeposit} from '../create-deposit/create-deposit';
 import {AccountStore} from '../../../store/account-store';
 import {Account} from '../../../model/account/Account';
 
@@ -27,8 +25,6 @@ import {Account} from '../../../model/account/Account';
     InputNumber,
     InputText,
     Card,
-    Dialog,
-    CreateDeposit
   ],
   templateUrl: './transaction-home.html',
   standalone: true
@@ -37,8 +33,6 @@ export class TransactionHome implements OnInit {
   protected transactionStore = inject(TransactionStore);
   protected userStore = inject(UserStore);
   private accountStore = inject(AccountStore);
-
-  protected showDepositDialog: boolean = false;
 
   protected tableData: Signal<TransactionTableData[]> = computed(() =>
     this.transactionStore.transactions().map(transaction => {
@@ -52,9 +46,5 @@ export class TransactionHome implements OnInit {
     if(!this.accountStore.accounts().length) {
       this.accountStore.loadAllAccounts(this.userStore.user().userId);
     }
-  }
-
-  openDepositDialog(): void {
-    this.showDepositDialog = true;
   }
 }
