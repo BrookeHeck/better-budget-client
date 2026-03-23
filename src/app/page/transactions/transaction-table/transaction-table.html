@@ -2,22 +2,34 @@
   <p-table [value]="transactions">
     <ng-template #header>
       <tr>
-        <th>Edit</th>
         <th>Category</th>
         <th>Amount</th>
+        <th>Account</th>
         <th>Description</th>
         <th>Date of Transaction</th>
+        <th style="width: 12%"></th>
       </tr>
     </ng-template>
-    <ng-template #body let-transaction>
-      <tr>
+    <ng-template #body let-data>
+      <tr [ngClass]="{'bg-green-100/30!': data.transaction.amount >= 0, 'bg-red-100/30!': data.transaction.amount < 0}">
+        <td>{{data.transaction.category}}</td>
+        <td>{{data.transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
+        <td>{{data.account.name}}</td>
+        <td>{{data.transaction.dateOfTransaction}}</td>
+        <td>{{data.transaction.description}}</td>
         <td><p-button
-          icon="pi pi-pencil" [rounded]="true" [outlined]="true" [routerLink]="'/transaction-detail/' + transaction.transactionId" />
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [raised]="true"
+          severity="secondary"
+          class="pr-4"
+          [routerLink]="'/transaction-detail/' + data.transaction.transactionId" />
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [raised]="true"
+            severity="danger" />
         </td>
-        <td>{{transaction.category}}</td>
-        <td>{{transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
-        <td>{{transaction.description}}</td>
-        <td>{{transaction.dateOfTransaction}}</td>
       </tr>
     </ng-template>
   </p-table>

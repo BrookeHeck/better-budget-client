@@ -1,9 +1,8 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {PageHeader} from '../../../component/page-header/page-header';
 import {Step, StepList, StepPanel, StepPanels, Stepper} from 'primeng/stepper';
 import {Button} from 'primeng/button';
 import {Card} from 'primeng/card';
-import {AccountStore} from '../../../store/account-store';
 import {TransactionStore} from '../../../store/transaction-store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserStore} from '../../../store/user-store';
@@ -14,6 +13,7 @@ import {TransactionItemTable} from '../transaction-item-table/transaction-item-t
 import {TransactionForm} from '../transaction-form/transaction-form';
 import {RouterLink} from '@angular/router';
 import {TransactionType} from '../../../model/transaction/transaction-type';
+import {AccountStore} from '../../../store/account-store';
 
 @Component({
   selector: 'create-transaction',
@@ -36,24 +36,14 @@ import {TransactionType} from '../../../model/transaction/transaction-type';
   standalone: true,
   templateUrl: 'create-payment.html'
 })
-export class CreatePayment implements OnInit {
-  protected accountStore = inject(AccountStore);
-  protected transactionStore = inject(TransactionStore);
-  private userStore = inject(UserStore);
+export class CreatePayment {
+  protected readonly transactionStore = inject(TransactionStore);
+  private readonly userStore = inject(UserStore);
+  private readonly accountStore = inject(AccountStore);
 
   protected accountId: number;
-  protected accounts: Signal<Account[][]> = computed(() =>
-    [this.accountStore.checking(), this.accountStore.saving(), this.accountStore.credit()]
-  );
-
 
   protected createdTransaction: Transaction = new Transaction();
-
-  ngOnInit() {
-    if(!this.accountStore.accounts().length) {
-      this.accountStore.loadAllAccounts(this.userStore.user().userId);
-    }
-  }
 
   setSelectedAccount(account: Account) {
     this.accountId = account.accountId;
@@ -65,6 +55,7 @@ export class CreatePayment implements OnInit {
     transaction.transactionType = TransactionType.PAYMENT;
     transaction.amount = -transaction.amount;
     this.createdTransaction = await this.transactionStore.createTransaction(transaction);
+    this.accountStore.updateAccountBalance(this.createdTransaction.accountId, this.createdTransaction.amount);
   }
 
 }

@@ -45,6 +45,18 @@ export const TransactionStore = signalStore(
         const transactions = state.transactions.filter(t => t.transactionId !== transactionId);
         return {loading: false, transactions};
       })
-    }
+    },
+    async createTransferTransaction(to: Transaction, from: Transaction) {
+      patchState(store, {loading: true});
+      const res = await this.transactionService.createTransferTransaction(to, from);
+      patchState(store, state => {
+        const transactions = state.transactions.map(t => {
+          if(t.transactionId === to.transactionId) return res.to;
+          if(t.transactionId === from.transactionId) return res.from;
+          return t;
+        });
+        return {loading: false, transactions}
+      });
+    },
   }))
 )

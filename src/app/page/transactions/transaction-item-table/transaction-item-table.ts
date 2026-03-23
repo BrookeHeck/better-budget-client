@@ -39,20 +39,12 @@ export class TransactionItemTable implements OnChanges {
     }
   }
 
-  onRowEditInit(item: TransactionItem) {
-
-  }
-
   async onRowEditSave(item: TransactionItem) {
     if(!item.transactionItemId) await this.createTransactionItem(item);
     else {
       this.transactionItems = this.transactionItems.slice(0, -1)
       await this.transactionItemService.updateTransactionItem(item);
     }
-  }
-
-  onRowEditCancel(item: TransactionItem, index: number) {
-
   }
 
   async onRowDelete(item: TransactionItem) {

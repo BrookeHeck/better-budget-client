@@ -1,61 +1,58 @@
-@if (!accountStore.loading()) {
-  <div class="flex flex-col gap-4">
-    <page-header title="Create Transaction" backLink="/transactions" />
+<div class="flex flex-col gap-4">
+  <page-header title="Create Payment" backLink="/transactions" />
 
-    <p-card>
-      <div class="card flex justify-center">
-        <p-stepper [value]="1" class="basis-[50rem]">
+  <p-card>
+    <div class="card flex justify-center">
+      <p-stepper [value]="1" class="basis-[50rem]">
 
-          <p-step-list>
-            <p-step [value]="1" [disabled]="!!createdTransaction">Select Account</p-step>
-            <p-step [value]="2" [disabled]="!accountId || !!createdTransaction">Add Transaction Details</p-step>
-            <p-step [value]="3">Add Transaction Items</p-step>
-          </p-step-list>
+        <p-step-list>
+          <p-step [value]="1" [disabled]="!!createdTransaction">Select Account</p-step>
+          <p-step [value]="2" [disabled]="!accountId || !!createdTransaction">Add Transaction Details</p-step>
+          <p-step [value]="3">Add Transaction Items</p-step>
+        </p-step-list>
 
-          <p-step-panels>
-            <p-step-panel [value]="1">
-              <ng-template #content let-activateCallback="activateCallback">
-                <account-radio-list
-                  class="flex justify-between items-start ml-6 mr-12"
-                  [accounts]="accounts()"
-                  [selectedAccount]="accountId"
-                  (accountSelect)="setSelectedAccount($event)" />
-                <div class="flex pt-6 justify-end">
+        <p-step-panels>
+          <p-step-panel [value]="1">
+            <ng-template #content let-activateCallback="activateCallback">
+              <account-radio-list
+                class="flex justify-between items-start ml-6 mr-12"
+                [selectedAccount]="accountId"
+                (accountSelect)="setSelectedAccount($event)" />
+              <div class="flex pt-6 justify-end">
+                <p-button
+                  label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="!accountId" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+
+          <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
+              <ng-template #nextButton>
+                <div class="flex pt-6 justify-end mb-4">
                   <p-button
-                    label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" [disabled]="!accountId" />
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    type="submit"
+                    [disabled]="!accountId" />
                 </div>
               </ng-template>
-            </p-step-panel>
-
-            <p-step-panel [value]="2">
-              <ng-template #content let-activateCallback="activateCallback">
-                <ng-template #nextButton>
-                  <div class="flex pt-6 justify-end mb-4">
-                    <p-button
-                      label="Next"
-                      icon="pi pi-arrow-right"
-                      iconPos="right"
-                      type="submit"
-                      [disabled]="!accountId" />
-                  </div>
-                </ng-template>
-                <transaction-form
-                  [transaction]="createdTransaction"
-                  [buttonTemplate]="nextButton"
-                  (submit)="createTransaction($event); activateCallback(3)" />
-              </ng-template>
-            </p-step-panel>
-            <p-step-panel [value]="3">
-              <ng-template #content let-activateCallback="activateCallback">
-                <transaction-item-table [transaction]="createdTransaction" [transactionItems]="[]" />
-                <div class="flex pt-6 justify-end">
-                  <p-button label="Submit" icon="pi pi-arrow-right" iconPos="right" routerLink="/transactions" />
-                </div>
-              </ng-template>
-            </p-step-panel>
-          </p-step-panels>
-        </p-stepper>
-      </div>
-    </p-card>
-  </div>
-}
+              <transaction-form
+                [transaction]="createdTransaction"
+                [buttonTemplate]="nextButton"
+                (submit)="createTransaction($event); activateCallback(3)" />
+            </ng-template>
+          </p-step-panel>
+          <p-step-panel [value]="3">
+            <ng-template #content let-activateCallback="activateCallback">
+              <transaction-item-table [transaction]="createdTransaction" [transactionItems]="[]" />
+              <div class="flex pt-6 justify-end">
+                <p-button label="Submit" icon="pi pi-arrow-right" iconPos="right" routerLink="/transactions" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+        </p-step-panels>
+      </p-stepper>
+    </div>
+  </p-card>
+</div>

@@ -42,8 +42,7 @@
         <div class="flex items-center justify-center gap-2">
           @if (!editing) {
             <button pButton pRipple type="button" pInitEditableRow text rounded severity="secondary"
-                    [icon]="transactionItem.transactionItemId ? 'pi pi-pencil' : 'pi pi-plus'"
-                    (click)="onRowEditInit(transactionItem)">
+                    [icon]="transactionItem.transactionItemId ? 'pi pi-pencil' : 'pi pi-plus'" >
             </button>
           }
           @if (!editing && transactionItem.transactionItemId) {
@@ -55,15 +54,14 @@
 
           @if (editing) {
             <button  pButton pRipple type="button" pSaveEditableRow text rounded severity="secondary"
-                    icon="pi pi-check"
+                    icon="pi pi-save"
                     (click)="onRowEditSave(transactionItem)"
                     [disabled]="!transactionItem.category || !transactionItem.amount" >
             </button>
           }
           @if (editing) {
             <button pButton pRipple type="button" pCancelEditableRow text rounded severity="secondary"
-                    icon="pi pi-times"
-                    (click)="onRowEditCancel(transactionItem, ri)" ></button>
+                    icon="pi pi-times" ></button>
           }
         </div>
       </td>

@@ -54,4 +54,12 @@ export class TransactionRequests {
     return this.getTransactions(userId, params);
   }
 
+  public createTransferTransaction(to: Transaction, from: Transaction): Promise<TransferRequest> {
+    return this.http.post<TransferRequest, TransferRequest>(`${this.endpoint}/transfer`, {to, from});
+  }
+}
+
+type TransferRequest = {
+  to: Transaction,
+  from: Transaction
 }

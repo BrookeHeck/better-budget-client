@@ -1,0 +1,10 @@
+@if (!accountId) {
+  <account-radio-list
+    [selectedAccount]="accountId"
+    (accountSelect)="setAccountId($event)"
+    class="flex justify-between items-start ml-6 mr-12" />
+}
+
+@if (accountId) {
+  <transaction-form [transaction]="transaction" (submit)="createDeposit($event)" />
+}

@@ -1,24 +1,26 @@
-<ng-template #radioList let-list >
-  @for (item of list; track item.accountId) {
-    <li class="mb-3">
-      <p-radio-button
-        [inputId]="item.accountId"
-        name="account"
-        [value]="item.accountId"
-        [ngModel]="selectedAccount"
-        (ngModelChange)="accountSelect.emit(item)"
-      />
-      <label [for]="item.accountId" class="ml-2">{{item.name}}</label>
-    </li>
-  }
-</ng-template>
+@if (!accountStore.loading()) {
+  <ng-template #radioList let-list >
+    @for (item of list; track item.accountId) {
+      <li class="mb-3">
+        <p-radio-button
+          [inputId]="item.accountId"
+          name="account"
+          [value]="item.accountId"
+          [ngModel]="selectedAccount"
+          (ngModelChange)="accountSelect.emit(item)"
+        />
+        <label [for]="item.accountId" class="ml-2">{{item.name}}</label>
+      </li>
+    }
+  </ng-template>
 
-@for (list of accounts; track list[0].accountId) {
-  <ul class="flex flex-col justify-center items-start gap-2">
-    <ng-container>
-      <ng-container
-        *ngTemplateOutlet="radioList; context: { $implicit: list }">
+  @for (list of accounts(); track $index) {
+    <ul class="flex flex-col justify-center items-start gap-2">
+      <ng-container>
+        <ng-container
+          *ngTemplateOutlet="radioList; context: { $implicit: list }">
+        </ng-container>
       </ng-container>
-    </ng-container>
-  </ul>
+    </ul>
+  }
 }
