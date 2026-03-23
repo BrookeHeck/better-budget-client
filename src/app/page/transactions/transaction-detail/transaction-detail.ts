@@ -6,7 +6,7 @@ import {PageHeader} from '../../../component/page-header/page-header';
 import {Card} from 'primeng/card';
 import {TransactionItemTable} from '../transaction-item-table/transaction-item-table';
 import {Transaction} from '../../../model/transaction/transaction';
-import {TransactionItem} from '../../../model/transaction/transactionItem';
+import {TransactionItem} from '../../../model/transaction/transaction-item';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {switchMap} from 'rxjs';
 import {UserStore} from '../../../store/user-store';

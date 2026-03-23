@@ -52,6 +52,18 @@ export const AccountStore = signalStore(
         const accounts = state.accounts.filter(a => a.accountId !== accountId);
         return {loading: false, accounts};
       })
+    },
+    updateAccountBalance(accountId: number, amount: number) {
+      patchState(store, state => {
+        const accounts = state.accounts.map(a => {
+          if(a.accountId === accountId) {
+            const balance = a.balance + amount;
+            return {...a, balance}
+          }
+          return a;
+        });
+        return {accounts};
+      })
     }
   }))
 )

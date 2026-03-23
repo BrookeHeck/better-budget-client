@@ -1,5 +1,5 @@
-import {Component, inject, Input} from '@angular/core';
-import {TransactionItem} from '../../../model/transaction/transactionItem';
+import {Component, inject, Input, OnChanges, signal, SimpleChanges, WritableSignal} from '@angular/core';
+import {TransactionItem} from '../../../model/transaction/transaction-item';
 import {TableModule} from 'primeng/table';
 import {InputText} from 'primeng/inputtext';
 import {CurrencyPipe} from '@angular/common';
@@ -24,13 +24,20 @@ import {InputNumber} from 'primeng/inputnumber';
   standalone: true,
   templateUrl: 'transaction-item-table.html'
 })
-export class TransactionItemTable {
+export class TransactionItemTable implements OnChanges {
   @Input() transactionItems: TransactionItem[];
   @Input() transaction: Transaction;
 
+  tableData: WritableSignal<TransactionItem[]> = signal([]);
+
   transactionItemService = inject(TransactionItemRequests);
 
-  isAddingItem: boolean = false;
+  ngOnChanges(changes: SimpleChanges) {
+    const items = changes['transactionItems'].currentValue
+    if(items) {
+      this.tableData.update(() => [...items, new TransactionItem()])
+    }
+  }
 
   onRowEditInit(item: TransactionItem) {
 
@@ -39,33 +46,24 @@ export class TransactionItemTable {
   async onRowEditSave(item: TransactionItem) {
     if(!item.transactionItemId) await this.createTransactionItem(item);
     else {
+      this.transactionItems = this.transactionItems.slice(0, -1)
       await this.transactionItemService.updateTransactionItem(item);
     }
   }
 
   onRowEditCancel(item: TransactionItem, index: number) {
-    if(this.isAddingItem && !item.transactionId && !item.transactionItemId) {
-      this.transactionItems.pop();
-      this.isAddingItem = false;
-    }
-  }
 
-  onRowCreate() {
-    this.isAddingItem = true;
-    this.transactionItems.push(new TransactionItem());
   }
 
   async onRowDelete(item: TransactionItem) {
     await this.transactionItemService.deleteTransactionItem(item.transactionItemId);
-    setTimeout(() =>
-      this.transactionItems = this.transactionItems.filter(i => i.transactionItemId !== item.transactionItemId), 100);
+    this.tableData.update(items => items.filter(i => i.transactionItemId !== item.transactionItemId))
   }
 
   async createTransactionItem(item: TransactionItem) {
-    this.isAddingItem = false;
     item.transactionId = this.transaction.transactionId;
     const createdItem: TransactionItem = await this.transactionItemService.createTransactionItem(item);
-    this.transactionItems[this.transactionItems.length - 1].transactionItemId = createdItem.transactionItemId;
+    this.tableData.update(items => [...items.slice(0, -1), createdItem, new TransactionItem()])
   }
 
 

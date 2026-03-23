@@ -1,4 +1,4 @@
-<form class="flex flex-col justify-center items-center gap-5" [formGroup]="form" (ngSubmit)="submitTransaction($event)">
+<form class="flex flex-col justify-center items-center gap-6" [formGroup]="form" (ngSubmit)="submitTransaction($event)">
   <p-floatlabel>
     <p-input-number
       formControlName="amount"
@@ -7,6 +7,7 @@
       [minFractionDigits]="2"
       [maxFractionDigits]="2"
       class="w-75"
+      [min]="0"
     />
     <label for="transaction-amount">Transaction Amount</label>
   </p-floatlabel>

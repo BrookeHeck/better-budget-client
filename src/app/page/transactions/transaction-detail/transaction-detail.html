@@ -1,9 +1,9 @@
 @if (transaction()) {
-  <page-header title="Transaction Details" />
+  <page-header title="Transaction Details" backLink="/transactions" />
   <div class="flex gap-4 mt-4">
     <div class="w-1/4">
       <p-card class="flex flex-col gap-4">
-        <h2 class="font-bold">Details</h2>
+        <h2 class="font-bold mb-6">Details</h2>
         <transaction-form [transaction]="transaction()" (submit)="updateTransaction($event)" />
       </p-card>
     </div>

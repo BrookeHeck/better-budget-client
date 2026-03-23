@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpRequestHandler} from './http-request-handler';
-import {TransactionItem} from '../../model/transaction/transactionItem';
+import {TransactionItem} from '../../model/transaction/transaction-item';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,6 @@ export class TransactionItemRequests {
   }
 
   public deleteTransactionItem(transactionItemId: number): Promise<void> {
-    console.log(transactionItemId);
     return this.http.delete(`${this.endpoint}/${transactionItemId}`);
   }
 

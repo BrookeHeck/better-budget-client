@@ -50,7 +50,10 @@
   </div>
   <div class="w-3/4 flex flex-col justify-center-items-center gap-4">
     <ng-template #headerEnd>
-      <p-button label="Create Transaction" routerLink="/create-transaction" />
+      <div>
+        <p-button label="Create Payment" routerLink="/create-payment" [outlined]="true" severity="danger" [raised]="true" />
+        <p-button label="Create Deposit" [outlined]="true" class="ml-4" [raised]="true" />
+      </div>
     </ng-template>
     <page-header title="Transactions" [end]="headerEnd" />
 

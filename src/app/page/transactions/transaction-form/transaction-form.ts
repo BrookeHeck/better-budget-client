@@ -34,7 +34,7 @@ export class TransactionForm implements OnInit{
   ngOnInit() {
     const date = this.transaction.dateOfTransaction ? new Date(this.transaction.dateOfTransaction) : null;
     this.form = new FormGroup({
-      amount: new FormControl<number>(this.transaction.amount),
+      amount: new FormControl<number>({value: this.transaction.amount, disabled: !!this.transaction.transactionId}),
       description: new FormControl<string>(this.transaction.description),
       category: new FormControl<string>(this.transaction.category),
       dateOfTransaction: new FormControl<Date>(date)

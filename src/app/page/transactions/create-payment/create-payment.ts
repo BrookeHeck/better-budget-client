@@ -5,7 +5,7 @@ import {Button} from 'primeng/button';
 import {Card} from 'primeng/card';
 import {AccountStore} from '../../../store/account-store';
 import {TransactionStore} from '../../../store/transaction-store';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserStore} from '../../../store/user-store';
 import {Account} from '../../../model/account/Account';
 import {AccountRadioList} from '../../../component/account-radio-list/account-radio-list';
@@ -13,6 +13,7 @@ import {Transaction} from '../../../model/transaction/transaction';
 import {TransactionItemTable} from '../transaction-item-table/transaction-item-table';
 import {TransactionForm} from '../transaction-form/transaction-form';
 import {RouterLink} from '@angular/router';
+import {TransactionType} from '../../../model/transaction/transaction-type';
 
 @Component({
   selector: 'create-transaction',
@@ -33,9 +34,9 @@ import {RouterLink} from '@angular/router';
     RouterLink,
   ],
   standalone: true,
-  templateUrl: 'create-transaction.html'
+  templateUrl: 'create-payment.html'
 })
-export class CreateTransaction implements OnInit {
+export class CreatePayment implements OnInit {
   protected accountStore = inject(AccountStore);
   protected transactionStore = inject(TransactionStore);
   private userStore = inject(UserStore);
@@ -61,6 +62,8 @@ export class CreateTransaction implements OnInit {
   async createTransaction(transaction: Transaction) {
     transaction.userId = this.userStore.user().userId;
     transaction.accountId = this.accountId;
+    transaction.transactionType = TransactionType.PAYMENT;
+    transaction.amount = -transaction.amount;
     this.createdTransaction = await this.transactionStore.createTransaction(transaction);
   }
 

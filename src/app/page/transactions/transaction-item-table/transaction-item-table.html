@@ -1,17 +1,13 @@
-<p-table [value]="transactionItems" dataKey="transactionItemId" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table
+  [value]="tableData()"
+  dataKey="transactionItemId"
+  editMode="row"
+  [tableStyle]="{ 'min-width': '50rem' }" >
   <ng-template #header>
     <tr>
       <th style="width:35%">Item Name</th>
       <th style="width:35%">Price</th>
-      <th style="width:20%">
-        <button pButton pRipple type="button"  text severity="secondary"
-                icon="pi pi-plus"
-                [disabled]="isAddingItem"
-
-                (click)="onRowCreate()" >
-          Add Item
-        </button>
-      </th>
+      <th style="width:20%"></th>
     </tr>
   </ng-template>
   <ng-template #body let-transactionItem let-editing="editing" let-ri="rowIndex">
@@ -30,7 +26,7 @@
         <p-cellEditor>
           <ng-template #input>
             <p-input-number
-              [(ngModel)]="transaction.amount"
+              [(ngModel)]="transactionItem.amount"
               inputId="account-balance"
               mode="decimal"
               [minFractionDigits]="2"
@@ -46,16 +42,17 @@
         <div class="flex items-center justify-center gap-2">
           @if (!editing) {
             <button pButton pRipple type="button" pInitEditableRow text rounded severity="secondary"
-                    icon="pi pi-pencil"
+                    [icon]="transactionItem.transactionItemId ? 'pi pi-pencil' : 'pi pi-plus'"
                     (click)="onRowEditInit(transactionItem)">
             </button>
           }
-          @if (!editing) {
+          @if (!editing && transactionItem.transactionItemId) {
             <button pButton pRipple type="button" text rounded severity="danger"
                     icon="pi pi-trash"
                     (click)="onRowDelete(transactionItem)">
             </button>
           }
+
           @if (editing) {
             <button  pButton pRipple type="button" pSaveEditableRow text rounded severity="secondary"
                     icon="pi pi-check"
