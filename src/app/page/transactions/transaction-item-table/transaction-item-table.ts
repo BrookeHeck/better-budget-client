@@ -1,4 +1,14 @@
-import {Component, inject, Input, OnChanges, signal, SimpleChanges, WritableSignal} from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  Input,
+  OnChanges,
+  Signal,
+  signal,
+  SimpleChanges,
+  WritableSignal
+} from '@angular/core';
 import {TransactionItem} from '../../../model/transaction/transaction-item';
 import {TableModule} from 'primeng/table';
 import {InputText} from 'primeng/inputtext';
@@ -9,6 +19,7 @@ import {Ripple} from 'primeng/ripple';
 import {Transaction} from '../../../model/transaction/transaction';
 import {TransactionItemRequests} from '../../../service/http-requests/transaction-item-requests';
 import {InputNumber} from 'primeng/inputnumber';
+import {Card} from 'primeng/card';
 
 @Component({
   selector: 'transaction-item-table',
@@ -19,7 +30,8 @@ import {InputNumber} from 'primeng/inputnumber';
     FormsModule,
     ButtonDirective,
     Ripple,
-    InputNumber
+    InputNumber,
+    Card
   ],
   standalone: true,
   templateUrl: 'transaction-item-table.html'
@@ -29,6 +41,13 @@ export class TransactionItemTable implements OnChanges {
   @Input() transaction: Transaction;
 
   tableData: WritableSignal<TransactionItem[]> = signal([]);
+
+  transactionItemTotal: Signal<number> = computed(() => {
+    const integerSum = this.tableData().reduce((accum, item) => (
+      item.amount ? accum + (item.amount * 100) : accum
+    ), 0);
+    return integerSum / 100;
+  });
 
   transactionItemService = inject(TransactionItemRequests);
 
