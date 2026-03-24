@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
 import {Account} from '../../../model/account/Account';
 import {AccountForm} from '../account-form/account-form';
@@ -11,6 +11,8 @@ import {AccountTable} from '../account-table/account-table';
 import {AccountsOverview} from '../accounts-overview/accounts-overview';
 import {PageHeader} from '../../../component/page-header/page-header';
 import {RouterLink} from '@angular/router';
+import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
+import {TransactionStore} from '../../../store/transaction-store';
 
 @Component({
   selector: 'accounts-home',
@@ -22,18 +24,23 @@ import {RouterLink} from '@angular/router';
     AccountTable,
     AccountsOverview,
     PageHeader,
-    RouterLink
+    RouterLink,
+    ConfirmDialog
   ],
   templateUrl: './accounts-home.html',
 })
 export class AccountsHome implements OnInit {
   protected accountStore = inject(AccountStore);
   private userStore = inject(UserStore);
+  private transactionStore = inject(TransactionStore);
 
   protected readonly AccountTypeDisplay = AccountTypeDisplay;
 
   protected showForm: boolean = false;
   protected selectedAccount: Account = new Account();
+
+  private accountIdForDeletion: number;
+  protected showConfirmDialog: boolean = false;
 
   ngOnInit() {
     this.accountStore.loadAllAccounts(this.userStore.user().userId);
@@ -78,10 +85,20 @@ export class AccountsHome implements OnInit {
   }
 
   deleteAccount(accountId: number) {
-    try {
-      this.accountStore.deleteAccount(accountId);
-    } catch (e) {
-      console.log(e);
+    this.accountIdForDeletion = accountId;
+    this.showConfirmDialog = true;
+  }
+
+  async onConfirmDelete(confirmDelete: boolean) {
+    if(confirmDelete) {
+      try {
+        await this.accountStore.deleteAccount(this.accountIdForDeletion);
+        this.transactionStore.removeTransactionsOnAccountDeletion(this.accountIdForDeletion);
+      } catch (e) {
+        console.log(e);
+      }
     }
+    this.showConfirmDialog = false;
+    this.accountIdForDeletion = null;
   }
 }

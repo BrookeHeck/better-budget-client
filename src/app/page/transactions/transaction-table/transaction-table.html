@@ -17,20 +17,36 @@
         <td>{{data.account.name}}</td>
         <td>{{data.transaction.dateOfTransaction}}</td>
         <td>{{data.transaction.description}}</td>
-        <td><p-button
-          icon="pi pi-pencil"
-          [rounded]="true"
-          [raised]="true"
-          severity="secondary"
-          class="pr-4"
-          [routerLink]="'/transaction-detail/' + data.transaction.transactionId" />
-          <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [raised]="true"
-            severity="danger" />
+        <td>
+          <div class="flex justify-center items-center gap-4">
+            @if (data.transaction.transactionType === TransactionType.DEPOSIT ||
+            data.transaction.transactionType === TransactionType.PAYMENT) {
+              <p-button
+                icon="pi pi-pencil"
+                [rounded]="true"
+                [raised]="true"
+                severity="secondary"
+                [routerLink]="'/transaction-detail/' + data.transaction.transactionId" />
+            }
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [raised]="true"
+              severity="danger"
+              (onClick)="onDeleteTransaction(data.transaction.transactionId)"
+            />
+          </div>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </p-card>
+
+<confirm-dialog
+  [visible]="showConfirmDialog"
+  text="Are you sure you want to delete this transaction? All transaction items associated with this transaction will be deleted."
+  subText="Account balances are not updated on transaction deletes. Please go to the accounts page and make edits if necessary."
+  confirmLabel="Delete"
+  confirmSeverity="danger"
+  (confirm)="onConfirmDeleteTransaction($event)"
+/>

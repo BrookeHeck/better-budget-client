@@ -13,6 +13,7 @@ import {Button, ButtonSeverity} from 'primeng/button';
 export class ConfirmDialog {
   @Input() visible: boolean = false;
   @Input() text: string;
+  @Input() subText: string;
   @Input() confirmLabel: string = 'Confirm';
   @Input() confirmSeverity: ButtonSeverity = 'primary';
   @Input() cancelLabel: string = 'Cancel';

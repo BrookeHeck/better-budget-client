@@ -58,5 +58,11 @@ export const TransactionStore = signalStore(
         return {loading: false, transactions}
       });
     },
+    removeTransactionsOnAccountDeletion(accountId: number) {
+      patchState(store, state => {
+        const transactions = state.transactions.filter(t => t.accountId !== accountId);
+        return {transactions};
+      })
+    }
   }))
 )
