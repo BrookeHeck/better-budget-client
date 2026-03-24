@@ -1,0 +1,9 @@
+<p-dialog [(visible)]="visible">
+  <div class="flex flex-col items-center justify-center gap-4">
+    <p>{{text}}</p>
+    <div class="flex items-center justify-center gap-4">
+      <p-button [label]="confirmLabel" [severity]="confirmSeverity" (onClick)="confirm.emit(true)" />
+      <p-button [label]="cancelLabel" [severity]="cancelSeverity" [outlined]="true" (onClick)="confirm.emit(false)"/>
+    </div>
+  </div>
+</p-dialog>

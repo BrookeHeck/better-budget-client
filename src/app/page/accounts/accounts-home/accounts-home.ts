@@ -32,8 +32,8 @@ export class AccountsHome implements OnInit {
 
   protected readonly AccountTypeDisplay = AccountTypeDisplay;
 
-  showForm: boolean = false;
-  selectedAccount: Account = new Account();
+  protected showForm: boolean = false;
+  protected selectedAccount: Account = new Account();
 
   ngOnInit() {
     this.accountStore.loadAllAccounts(this.userStore.user().userId);
