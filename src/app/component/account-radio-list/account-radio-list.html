@@ -1,15 +1,15 @@
 @if (!accountStore.loading()) {
   <ng-template #radioList let-list >
-    @for (item of list; track item.accountId) {
+    @for (item of list; track radioButtonId + '-' +item.accountId) {
       <li class="mb-3">
         <p-radio-button
-          [inputId]="item.accountId"
+          [inputId]="radioButtonId + '-' + item.accountId"
           name="account"
           [value]="item.accountId"
           [ngModel]="selectedAccount"
           (ngModelChange)="accountSelect.emit(item)"
         />
-        <label [for]="item.accountId" class="ml-2">{{item.name}}</label>
+        <label [for]="radioButtonId + '-' + item.accountId" class="ml-2">{{item.name}}</label>
       </li>
     }
   </ng-template>

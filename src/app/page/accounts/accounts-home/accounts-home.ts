@@ -10,6 +10,7 @@ import {AccountTypeDisplay} from '../../../model/account/account-type';
 import {AccountTable} from '../account-table/account-table';
 import {AccountsOverview} from '../accounts-overview/accounts-overview';
 import {PageHeader} from '../../../component/page-header/page-header';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'accounts-home',
@@ -20,7 +21,8 @@ import {PageHeader} from '../../../component/page-header/page-header';
     TableModule,
     AccountTable,
     AccountsOverview,
-    PageHeader
+    PageHeader,
+    RouterLink
   ],
   templateUrl: './accounts-home.html',
 })

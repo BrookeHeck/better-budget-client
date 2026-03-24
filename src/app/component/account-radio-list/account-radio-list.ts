@@ -19,6 +19,7 @@ import {UserStore} from '../../store/user-store';
 export class AccountRadioList implements OnInit {
   @Input() selectedAccount: number;
   @Input() showLoanAccounts: boolean = false;
+  @Input() radioButtonId: string = 'account-select';
   @Output() accountSelect = new EventEmitter<Account>();
 
   protected readonly accountStore = inject(AccountStore);

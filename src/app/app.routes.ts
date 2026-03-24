@@ -10,18 +10,20 @@ import {BudgetHome} from './page/budget/budget-home';
 import {CreatePayment} from './page/transactions/create-payment/create-payment';
 import {TransactionDetail} from './page/transactions/transaction-detail/transaction-detail';
 import {CreateDeposit} from './page/transactions/create-deposit/create-deposit';
+import {AccountTransfer} from './page/accounts/account-transfer/account-transfer';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: Login},
-  { path: 'register', component: Register},
-  { path: 'dashboard', component: Dashboard},
-  { path: 'accounts', component: AccountsHome},
-  { path: 'budget', component: BudgetHome},
-  { path: 'transactions', component: TransactionHome},
-  { path: 'create-payment', component: CreatePayment},
-  { path: 'create-deposit', component: CreateDeposit},
-  { path: 'transaction-detail/:transactionId', component: TransactionDetail},
-  { path: 'recurring-payments', component: RecurringPayments},
-  { path: 'reports', component: Reports}
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  { path: 'dashboard', component: Dashboard },
+  { path: 'accounts', component: AccountsHome },
+  { path: 'account-transfer', component: AccountTransfer },
+  { path: 'budget', component: BudgetHome },
+  { path: 'transactions', component: TransactionHome },
+  { path: 'create-payment', component: CreatePayment },
+  { path: 'create-deposit', component: CreateDeposit },
+  { path: 'transaction-detail/:transactionId', component: TransactionDetail },
+  { path: 'recurring-payments', component: RecurringPayments },
+  { path: 'reports', component: Reports },
 ];

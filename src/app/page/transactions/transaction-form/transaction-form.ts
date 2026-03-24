@@ -25,6 +25,7 @@ import {Textarea} from 'primeng/textarea';
 })
 export class TransactionForm implements OnInit{
   @Input() transaction: Transaction;
+  @Input() showDescription: boolean = true;
   @Input() buttonTemplate: TemplateRef<any>;
 
   @Output() submit: EventEmitter<Transaction> = new EventEmitter();
@@ -35,10 +36,11 @@ export class TransactionForm implements OnInit{
     const date = this.transaction.dateOfTransaction ? new Date(this.transaction.dateOfTransaction) : null;
     this.form = new FormGroup({
       amount: new FormControl<number>({value: this.transaction.amount, disabled: !!this.transaction.transactionId}),
-      description: new FormControl<string>(this.transaction.description),
       category: new FormControl<string>(this.transaction.category),
       dateOfTransaction: new FormControl<Date>(date)
     });
+    if(this.showDescription)
+      this.form.addControl('description', new FormControl<string>(this.transaction.description));
   }
 
   submitTransaction(event: any) {
