@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <p-floatlabel>
+    <p-input-number
+      formControlName="budget"
+      inputId="budget-amount"
+      mode="decimal"
+      [minFractionDigits]="2"
+      [maxFractionDigits]="2"
+      class="w-75"
+      [min]="0"
+    />
+    <label for="budget-amount">Budget Amount</label>
+
+  </p-floatlabel>
+  <p-floatlabel>
+    <input pInputText type="text" class="w-75" id="budget-category-name" formControlName="name">
+    <label for="budget-category-name">Budget Category Name</label>
+  </p-floatlabel>
+
+  <p-button label="submit" />
+</form>

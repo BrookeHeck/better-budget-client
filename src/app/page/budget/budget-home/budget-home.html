@@ -1,0 +1,20 @@
+<ng-template #monthSelect>
+  <p-float-label>
+    <p-date-picker
+      [(ngModel)]="date"
+      inputId="budget-date-select"
+      view="month"
+      dateFormat="mm/yy"
+      [readonlyInput]="true"
+      (onSelect)="onDateSelection()"
+      [maxDate]="maxDate"
+    />
+    <label for="budget-date-select">Select Month/Year</label>
+  </p-float-label>
+</ng-template>
+
+<ng-template #monthTitle>
+  <h2>{{ date | date: 'MMMM yyyy' }}</h2>
+</ng-template>
+
+<page-header title="Budget" [middle]="monthTitle" [end]="monthSelect"/>

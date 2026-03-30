@@ -6,7 +6,7 @@ import {AccountsHome} from './page/accounts/accounts-home/accounts-home';
 import {TransactionHome} from './page/transactions/transaction-home/transaction-home';
 import {RecurringPayments} from './page/recurring-payments/recurring-payments';
 import {Reports} from './page/reports/reports';
-import {BudgetHome} from './page/budget/budget-home';
+import {BudgetHome} from './page/budget/budget-home/budget-home';
 import {CreatePayment} from './page/transactions/create-payment/create-payment';
 import {TransactionDetail} from './page/transactions/transaction-detail/transaction-detail';
 import {CreateDeposit} from './page/transactions/create-deposit/create-deposit';
