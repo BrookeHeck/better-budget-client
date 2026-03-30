@@ -16,7 +16,7 @@ import {TransactionType} from '../../../model/transaction/transaction-type';
 import {AccountStore} from '../../../store/account-store';
 
 @Component({
-  selector: 'create-transaction',
+  selector: 'create-expense',
   imports: [
     PageHeader,
     Stepper,
@@ -34,9 +34,9 @@ import {AccountStore} from '../../../store/account-store';
     RouterLink,
   ],
   standalone: true,
-  templateUrl: 'create-payment.html'
+  templateUrl: 'create-expense.html'
 })
-export class CreatePayment {
+export class CreateExpense {
   protected readonly transactionStore = inject(TransactionStore);
   private readonly userStore = inject(UserStore);
   private readonly accountStore = inject(AccountStore);
@@ -52,10 +52,11 @@ export class CreatePayment {
   async createTransaction(transaction: Transaction) {
     transaction.userId = this.userStore.user().userId;
     transaction.accountId = this.accountId;
-    transaction.transactionType = TransactionType.PAYMENT;
+    transaction.transactionType = TransactionType.EXPENSE;
     transaction.amount = -transaction.amount;
     this.createdTransaction = await this.transactionStore.createTransaction(transaction);
     this.accountStore.updateAccountBalance(this.createdTransaction.accountId, this.createdTransaction.amount);
   }
 
+  protected readonly TransactionType = TransactionType;
 }

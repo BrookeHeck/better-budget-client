@@ -8,7 +8,11 @@
         (accountSelect)="setAccountId($event)"
         class="flex justify-between items-start gap-6" />
       <p class="font-bold">Transaction Details</p>
-      <transaction-form [transaction]="transaction" (submit)="createDeposit($event)" />
+      <transaction-form
+        [transaction]="transaction"
+        (submit)="createDeposit($event)"
+        [transactionType]="TransactionType.DEPOSIT"
+      />
     </div>
   </p-card>
 </div>

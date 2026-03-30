@@ -60,4 +60,6 @@ export class AccountTransfer {
       transactionType: TransactionType.TRANSFER
     };
   }
+
+  protected readonly TransactionType = TransactionType;
 }

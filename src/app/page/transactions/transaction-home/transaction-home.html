@@ -3,7 +3,7 @@
     <page-header title="Filters" />
     <p-card>
       <form class="flex flex-col justify-start items-start gap-6">
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-6">
           <p class="font-bold">Filter by Date</p>
           <p-floatlabel>
             <p-date-picker inputId="startDate" class="w-75" />
@@ -14,7 +14,7 @@
             <label for="endDate">End Date</label>
           </p-floatlabel>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-6">
           <p class="font-bold">Filter by Amount</p>
           <p-floatlabel>
             <p-input-number
@@ -37,21 +37,21 @@
             <label for="max-amount">Maximum Amount</label>
           </p-floatlabel>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-6">
           <p class="font-bold">Filter by Category</p>
           <p-floatlabel>
             <input pInputText type="text" class="w-75" id="category">
             <label for="category">Category</label>
           </p-floatlabel>
         </div>
-        <p-button label="Apply Filter" />
+        <p-button label="Apply Filters" />
       </form>
     </p-card>
   </div>
   <div class="w-3/4 flex flex-col justify-center-items-center gap-4">
     <ng-template #headerEnd>
       <div>
-        <p-button label="Create Payment" routerLink="/create-payment" [outlined]="true" severity="danger" [raised]="true" />
+        <p-button label="Create Expense" routerLink="/create-expense" [outlined]="true" severity="danger" [raised]="true" />
         <p-button label="Create Deposit" routerLink="/create-deposit" [outlined]="true" class="ml-4" [raised]="true" />
       </div>
     </ng-template>

@@ -4,7 +4,10 @@
     <div class="w-1/4">
       <p-card class="flex flex-col gap-4">
         <h2 class="font-bold mb-6">Details</h2>
-        <transaction-form [transaction]="transaction()" (submit)="updateTransaction($event)" />
+        <transaction-form
+          [transaction]="transaction()"
+          [transactionType]="transaction().transactionType"
+          (submit)="updateTransaction($event)" />
       </p-card>
     </div>
     <p-card class="w-3/4">

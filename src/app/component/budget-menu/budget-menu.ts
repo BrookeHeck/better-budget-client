@@ -38,9 +38,9 @@ export class BudgetMenu {
 
   private userItems: MenuItem[] = [
     {
-      label: 'Dashboard',
-      icon: 'pi pi-home',
-      routerLink: '/dashboard',
+      label: 'Budget',
+      icon: 'pi pi-wallet',
+      routerLink: '/budget'
     },
     {
       label: 'Accounts',
@@ -51,11 +51,6 @@ export class BudgetMenu {
       label: 'Transactions',
       icon: 'pi pi-credit-card',
       routerLink: '/transactions',
-    },
-    {
-      label: 'Budget',
-      icon: 'pi pi-wallet',
-      routerLink: '/budget'
     },
     {
       label: 'Recurring Payments',

@@ -43,4 +43,6 @@ export class CreateDeposit {
     this.accountStore.updateAccountBalance(this.transaction.accountId, this.transaction.amount);
     this.router.navigate(['/transactions']);
   }
+
+  protected readonly TransactionType = TransactionType;
 }

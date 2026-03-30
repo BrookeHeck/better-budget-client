@@ -20,7 +20,7 @@
         <td>
           <div class="flex justify-center items-center gap-4">
             @if (data.transaction.transactionType === TransactionType.DEPOSIT ||
-            data.transaction.transactionType === TransactionType.PAYMENT) {
+            data.transaction.transactionType === TransactionType.EXPENSE) {
               <p-button
                 icon="pi pi-pencil"
                 [rounded]="true"

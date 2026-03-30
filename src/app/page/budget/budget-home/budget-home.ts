@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DatePicker} from 'primeng/datepicker';
 import {DatePipe} from '@angular/common';
 import {FloatLabel} from 'primeng/floatlabel';
+import {CategoryOverview} from '../category-overview/category-overview';
 
 @Component({
   selector: 'budget-home',
@@ -12,7 +13,8 @@ import {FloatLabel} from 'primeng/floatlabel';
     FormsModule,
     DatePicker,
     DatePipe,
-    FloatLabel
+    FloatLabel,
+    CategoryOverview
   ],
   templateUrl: 'budget-home.html'
 })

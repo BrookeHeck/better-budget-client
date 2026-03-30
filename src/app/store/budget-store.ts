@@ -1,6 +1,6 @@
 import {BudgetCategory} from '../model/budget-category/budget-category';
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
-import {inject} from '@angular/core';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
+import {computed, inject} from '@angular/core';
 import {BudgetRequests} from '../service/http-requests/budget-requests';
 
 type BudgetState = {
@@ -16,6 +16,9 @@ const initialState: BudgetState = {
 export const BudgetStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
+  withComputed(store => ({
+    activeCategories: computed(() => store.categories().filter(c => c.active)),
+  })),
   withMethods((store, budgetRequests = inject(BudgetRequests)) => ({
     async getBudgetCategoriesForUser(userId: number): Promise<void> {
       patchState(store, {loading: true});

@@ -11,16 +11,24 @@
     />
     <label for="transaction-amount">Transaction Amount</label>
   </p-floatlabel>
-  @if (showDescription) {
+  @if (transactionType === TransactionType.EXPENSE || transactionType === TransactionType.DEPOSIT ) {
     <p-floatlabel>
       <textarea class="w-75" rows="3" cols="30" pTextarea formControlName="description" id="description"></textarea>
       <label for="description">Description</label>
     </p-floatlabel>
   }
-  <p-floatlabel>
-    <input pInputText type="text" class="w-75" id="category" formControlName="category">
-    <label for="category">Category</label>
-  </p-floatlabel>
+  @if (transactionType === TransactionType.EXPENSE) {
+    <p-floatlabel>
+      <p-select
+        [options]="budgetStore.activeCategories()"
+        optionLabel="name"
+        optionValue="budgetCategoryId"
+        class="w-75"
+        formControlName="categoryId"
+      />
+      <label for="category">Category</label>
+    </p-floatlabel>
+  }
   <p-floatlabel>
     <p-date-picker formControlName="dateOfTransaction" inputId="date" class="w-75" />
     <label for="date">Date of Transaction</label>

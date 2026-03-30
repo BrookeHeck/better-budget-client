@@ -3,7 +3,7 @@ import {TransactionType} from './transaction-type';
 export class Transaction {
   transactionId: number;
   transactionType: TransactionType;
-  category: string;
+  categoryId: number;
   amount: number;
   description: string;
   dateOfTransaction: Date;

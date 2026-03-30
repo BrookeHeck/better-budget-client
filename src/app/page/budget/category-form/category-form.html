@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="flex flex-col gap-10 mt-5">
   <p-floatlabel>
     <p-input-number
       formControlName="budget"
@@ -10,12 +10,11 @@
       [min]="0"
     />
     <label for="budget-amount">Budget Amount</label>
-
   </p-floatlabel>
   <p-floatlabel>
     <input pInputText type="text" class="w-75" id="budget-category-name" formControlName="name">
     <label for="budget-category-name">Budget Category Name</label>
   </p-floatlabel>
 
-  <p-button label="submit" />
+  <p-button label="submit" (onClick)="onSubmit()" />
 </form>

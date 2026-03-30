@@ -28,11 +28,9 @@ export class Login {
     const { email, password } = this.loginForm.value;
     try {
       await this.userStore.login(email, password);
-      this.router.navigate(['dashboard'])
+      this.router.navigate(['budget'])
     } catch (e) {
       this.loginError = true;
     }
   }
-
-
 }

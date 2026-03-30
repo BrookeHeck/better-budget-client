@@ -40,7 +40,9 @@
               <transaction-form
                 [transaction]="createdTransaction"
                 [buttonTemplate]="nextButton"
-                (submit)="createTransaction($event); activateCallback(3)" />
+                [transactionType]="TransactionType.EXPENSE"
+                (submit)="createTransaction($event); activateCallback(3)"
+              />
             </ng-template>
           </p-step-panel>
           <p-step-panel [value]="3">
