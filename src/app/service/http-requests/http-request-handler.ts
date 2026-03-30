@@ -28,4 +28,7 @@ export class HttpRequestHandler {
     return firstValueFrom(this.http.delete<void>(this.baseUrl + endpoint));
   }
 
+  public patch<B>(endpoint: string, body: B): Promise<void> {
+    return firstValueFrom(this.http.patch<void>(endpoint, body))
+  }
 }
