@@ -5,6 +5,7 @@ import {DatePicker} from 'primeng/datepicker';
 import {DatePipe} from '@angular/common';
 import {FloatLabel} from 'primeng/floatlabel';
 import {CategoryOverview} from '../category-overview/category-overview';
+import {Card} from 'primeng/card';
 
 @Component({
   selector: 'budget-home',
@@ -14,7 +15,8 @@ import {CategoryOverview} from '../category-overview/category-overview';
     DatePicker,
     DatePipe,
     FloatLabel,
-    CategoryOverview
+    CategoryOverview,
+    Card
   ],
   templateUrl: 'budget-home.html'
 })

@@ -5,11 +5,6 @@ import {RouterLink} from '@angular/router';
 import {TransactionTable, TransactionTableData} from '../transaction-table/transaction-table';
 import {TransactionStore} from '../../../store/transaction-store';
 import {UserStore} from '../../../store/user-store';
-import {FloatLabel} from 'primeng/floatlabel';
-import {DatePicker} from 'primeng/datepicker';
-import {InputNumber} from 'primeng/inputnumber';
-import {InputText} from 'primeng/inputtext';
-import {Card} from 'primeng/card';
 import {AccountStore} from '../../../store/account-store';
 import {Account} from '../../../model/account/Account';
 import {BudgetStore} from '../../../store/budget-store';
@@ -22,11 +17,6 @@ import {BudgetCategory} from '../../../model/budget-category/budget-category';
     PageHeader,
     RouterLink,
     TransactionTable,
-    FloatLabel,
-    DatePicker,
-    InputNumber,
-    InputText,
-    Card,
   ],
   templateUrl: './transaction-home.html',
   standalone: true
@@ -47,9 +37,13 @@ export class TransactionHome implements OnInit {
   )
 
   ngOnInit() {
-    this.transactionStore.loadAllTransactions(this.userStore.user().userId);
+    const userId = this.userStore.user().userId;
+    this.transactionStore.loadAllTransactions(userId);
     if(!this.accountStore.accounts().length) {
-      this.accountStore.loadAllAccounts(this.userStore.user().userId);
+      this.accountStore.loadAllAccounts(userId);
+    }
+    if(!this.budgetStore.categories().length) {
+      this.budgetStore.getBudgetCategoriesForUser(userId);
     }
   }
 }
