@@ -9,6 +9,7 @@ import {Account} from '../../../model/account/Account';
 import {TransactionStore} from '../../../store/transaction-store';
 import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
 import {TransactionType} from '../../../model/transaction/transaction-type';
+import {BudgetCategory} from '../../../model/budget-category/budget-category';
 
 @Component({
   selector: 'transaction-table',
@@ -56,4 +57,5 @@ export class TransactionTable {
 export type TransactionTableData = {
   transaction: Transaction,
   account: Account
+  category: BudgetCategory
 }

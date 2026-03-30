@@ -12,13 +12,16 @@
     </ng-template>
     <ng-template #body let-data>
       <tr [ngClass]="{'bg-green-100/30!': data.transaction.amount >= 0, 'bg-red-100/30!': data.transaction.amount < 0}">
-        <td>{{data.transaction.category}}</td>
+        <td>{{data.category?.name ||
+          (data.transaction.transactionType === TransactionType.DEPOSIT ? 'Deposit' :
+          data.transaction.transactionType === TransactionType.TRANSFER ? 'Transfer' : '')
+          }}</td>
         <td>{{data.transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
         <td>{{data.account.name}}</td>
         <td>{{data.transaction.dateOfTransaction}}</td>
         <td>{{data.transaction.description}}</td>
         <td>
-          <div class="flex justify-center items-center gap-4">
+          <div class="flex justify-end items-center gap-4">
             @if (data.transaction.transactionType === TransactionType.DEPOSIT ||
             data.transaction.transactionType === TransactionType.EXPENSE) {
               <p-button

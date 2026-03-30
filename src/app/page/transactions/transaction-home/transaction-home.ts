@@ -12,6 +12,8 @@ import {InputText} from 'primeng/inputtext';
 import {Card} from 'primeng/card';
 import {AccountStore} from '../../../store/account-store';
 import {Account} from '../../../model/account/Account';
+import {BudgetStore} from '../../../store/budget-store';
+import {BudgetCategory} from '../../../model/budget-category/budget-category';
 
 @Component({
   selector: 'transaction-home',
@@ -33,11 +35,14 @@ export class TransactionHome implements OnInit {
   protected transactionStore = inject(TransactionStore);
   protected userStore = inject(UserStore);
   private accountStore = inject(AccountStore);
+  private budgetStore = inject(BudgetStore);
 
   protected tableData: Signal<TransactionTableData[]> = computed(() =>
     this.transactionStore.transactions().map(transaction => {
       const account: Account = this.accountStore.accounts().find(a => transaction.accountId === a.accountId);
-      return {transaction, account};
+      const category: BudgetCategory = this.budgetStore.categories()
+        .find(c => transaction.categoryId === c.budgetCategoryId)
+      return {transaction, account, category};
     })
   )
 
