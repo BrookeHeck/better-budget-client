@@ -10,8 +10,6 @@ import {BudgetCategory} from '../../../model/budget-category/budget-category';
 import {TransactionStore} from '../../../store/transaction-store';
 import {MeterGroup, MeterItem} from 'primeng/metergroup';
 import {Divider} from 'primeng/divider';
-import {BaseChartDirective} from 'ng2-charts';
-import {ChartData, ChartDataset} from 'chart.js';
 
 @Component({
   selector: 'category-overview',
@@ -24,7 +22,6 @@ import {ChartData, ChartDataset} from 'chart.js';
     MeterGroup,
     Divider,
     CurrencyPipe,
-    BaseChartDirective,
   ],
   templateUrl: 'category-overview.html'
 })
@@ -52,20 +49,20 @@ export class CategoryOverview implements OnInit {
     return categoryMap;
   });
 
-  protected chartData: Signal<any> = computed(() => {
-    const data: number[] = [];
-    const labels: string[] = [];
-    this.budgetStore.categories().forEach(c => {
-      labels.push(c.name);
-      data.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
-    });
-    const dataSet: any = {
-      datasets: [
-        {type: 'pie', data, labels}
-      ]
-    }
-    return dataSet;
-  })
+  // protected chartData: Signal<any> = computed(() => {
+  //   const data: number[] = [];
+  //   const labels: string[] = [];
+  //   this.budgetStore.categories().forEach(c => {
+  //     labels.push(c.name);
+  //     data.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
+  //   });
+  //   const dataSet: any = {
+  //     datasets: [
+  //       {type: 'pie', data, labels}
+  //     ]
+  //   }
+  //   return dataSet;
+  // })
 
   ngOnInit() {
     this.budgetStore.getBudgetCategoriesForUser(this.userStore.user().userId);
