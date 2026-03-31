@@ -8,7 +8,7 @@ import {PageHeader} from '../../../component/page-header/page-header';
 import {Button} from 'primeng/button';
 import {UserStore} from '../../../store/user-store';
 import {Card} from 'primeng/card';
-import {NgTemplateOutlet} from '@angular/common';
+import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Divider} from 'primeng/divider';
 import {ChartOptions} from '../../../model/chart-options';
 import {ChartComponent} from 'ng-apexcharts';
@@ -21,7 +21,8 @@ import {ChartComponent} from 'ng-apexcharts';
     Card,
     NgTemplateOutlet,
     Divider,
-    ChartComponent
+    ChartComponent,
+    CurrencyPipe
   ],
   templateUrl: 'budget-category-oveview.html'
 })
@@ -36,7 +37,7 @@ export class BudgetCategoryOverview implements OnInit {
 
   private categoryId: WritableSignal<number> = signal(0);
   protected category: Signal<BudgetCategory> = computed(() =>
-    this.budgetStore.categories().find(c => c.budgetCategoryId === this.categoryId())
+    this.budgetStore.activeCategories().find(c => c.budgetCategoryId === this.categoryId())
   )
 
   protected itemsToAmount: Signal<Map<string, number>> = computed(() => {
