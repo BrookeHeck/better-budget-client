@@ -1,7 +1,8 @@
 import {Transaction} from '../model/transaction/transaction';
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
-import {inject} from '@angular/core';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
+import {computed, inject} from '@angular/core';
 import {TransactionRequests} from '../service/http-requests/transaction-requests';
+import {TransactionType} from '../model/transaction/transaction-type';
 
 type TransactionState = {
   transactions: Transaction[],
@@ -16,6 +17,10 @@ const initialState: TransactionState = {
 export const TransactionStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
+  withComputed(store => ({
+    expenses: computed(() => store.transactions()
+      .filter(t => t.transactionType === TransactionType.EXPENSE))
+  })),
   withMethods((store, transactionService = inject(TransactionRequests)) => ({
     async loadAllTransactions(userId: number, startDate?: Date, endDate?: Date) {
       patchState(store, {loading: true});

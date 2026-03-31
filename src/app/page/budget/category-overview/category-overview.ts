@@ -2,23 +2,29 @@ import {Component, computed, inject, Input, OnInit, Signal, SimpleChanges} from 
 import {BudgetStore} from '../../../store/budget-store';
 import {UserStore} from '../../../store/user-store';
 import {Card} from 'primeng/card';
-import {TableModule} from 'primeng/table';
 import {Button} from 'primeng/button';
-import {CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Dialog} from 'primeng/dialog';
 import {CategoryForm} from '../category-form/category-form';
 import {BudgetCategory} from '../../../model/budget-category/budget-category';
 import {TransactionStore} from '../../../store/transaction-store';
+import {MeterGroup, MeterItem} from 'primeng/metergroup';
+import {Divider} from 'primeng/divider';
+import {BaseChartDirective} from 'ng2-charts';
+import {ChartData, ChartDataset} from 'chart.js';
 
 @Component({
   selector: 'category-overview',
   imports: [
     Card,
-    TableModule,
     Button,
-    CurrencyPipe,
     Dialog,
-    CategoryForm
+    CategoryForm,
+    NgTemplateOutlet,
+    MeterGroup,
+    Divider,
+    CurrencyPipe,
+    BaseChartDirective,
   ],
   templateUrl: 'category-overview.html'
 })
@@ -32,17 +38,33 @@ export class CategoryOverview implements OnInit {
   protected categoryDialogVisible: boolean = false;
   protected budgetCategory = new BudgetCategory();
 
-  protected categoryToAmount: Signal<Map<number, number>> = computed(() => {
-    const categoryMap: Map<number, number> = new Map();
-    this.transactionStore.transactions().forEach(t => {
-      const sum = categoryMap.get(t.categoryId);
-      categoryMap.set(t.categoryId, sum ? sum + t.amount : t.amount);
+  protected categoryToAmount: Signal<Map<number, MeterItem>> = computed(() => {
+    const categoryMap: Map<number, MeterItem> = new Map();
+    this.transactionStore.expenses().forEach(t => {
+      const currSum: number = categoryMap.get(t.categoryId)?.value;
+      const sum: number = currSum ? -t.amount + currSum: -t.amount;
+      categoryMap.set(t.categoryId, {value: sum, color: 'var(--p-primary-color)'});
     })
     this.budgetStore.categories().forEach(c => {
       if (!categoryMap.get(c.budgetCategoryId))
-        categoryMap.set(c.budgetCategoryId, 0);
+        categoryMap.set(c.budgetCategoryId, {value: 0});
     });
     return categoryMap;
+  });
+
+  protected chartData: Signal<any> = computed(() => {
+    const data: number[] = [];
+    const labels: string[] = [];
+    this.budgetStore.categories().forEach(c => {
+      labels.push(c.name);
+      data.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
+    });
+    const dataSet: any = {
+      datasets: [
+        {type: 'pie', data, labels}
+      ]
+    }
+    return dataSet;
   })
 
   ngOnInit() {

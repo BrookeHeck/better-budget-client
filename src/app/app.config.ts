@@ -11,6 +11,7 @@ import { routes } from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {UserStore} from './store/user-store';
 import {authInterceptor} from './interceptor/auth-interceptor';
+import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),
+    provideCharts(withDefaultRegisterables()),
     provideAppInitializer(() => {
       const userStore = inject(UserStore);
       const router = inject(Router);
