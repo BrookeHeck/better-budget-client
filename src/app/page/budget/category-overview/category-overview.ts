@@ -10,6 +10,11 @@ import {BudgetCategory} from '../../../model/budget-category/budget-category';
 import {TransactionStore} from '../../../store/transaction-store';
 import {MeterGroup, MeterItem} from 'primeng/metergroup';
 import {Divider} from 'primeng/divider';
+import {
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+  ApexChart, ChartComponent
+} from "ng-apexcharts";
 
 @Component({
   selector: 'category-overview',
@@ -22,6 +27,7 @@ import {Divider} from 'primeng/divider';
     MeterGroup,
     Divider,
     CurrencyPipe,
+    ChartComponent,
   ],
   templateUrl: 'category-overview.html'
 })
@@ -49,20 +55,20 @@ export class CategoryOverview implements OnInit {
     return categoryMap;
   });
 
-  // protected chartData: Signal<any> = computed(() => {
-  //   const data: number[] = [];
-  //   const labels: string[] = [];
-  //   this.budgetStore.categories().forEach(c => {
-  //     labels.push(c.name);
-  //     data.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
-  //   });
-  //   const dataSet: any = {
-  //     datasets: [
-  //       {type: 'pie', data, labels}
-  //     ]
-  //   }
-  //   return dataSet;
-  // })
+  protected chartOptions: Signal<Partial<ChartOptions>> = computed(() => {
+    const series: number[] = [];
+    const labels: string[] = [];
+    this.budgetStore.categories().forEach(c => {
+      labels.push(c.name);
+      series.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
+    });
+    const dataSet: any = {
+      datasets: [
+        {type: 'pie', data: series, labels}
+      ]
+    }
+    return {series, chart: {type: "pie"}, labels};
+  })
 
   ngOnInit() {
     this.budgetStore.getBudgetCategoriesForUser(this.userStore.user().userId);
@@ -101,3 +107,10 @@ export class CategoryOverview implements OnInit {
     this.openCategoryDialog();
   }
 }
+
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
