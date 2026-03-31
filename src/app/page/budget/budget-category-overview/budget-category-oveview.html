@@ -1,0 +1,32 @@
+@if (!loading()) {
+  <ng-template #buttons>
+    <div class="flex items-center justify-end gap-2">
+      <p-button label="Edit" icon="pi pi-pencil" (onClick)="openEditCategoryDialog()" />
+      <p-button label="Lock" icon="pi pi-lock" severity="danger" (onClick)="onLockBudgetCategory()" />
+    </div>
+  </ng-template>
+  <div class="flex flex-col gap-4">
+    <page-header [title]="category().name" [end]="buttons" backLink="/budget"/>
+    <div class="flex gap-4">
+      <p-card class="w-1/2">
+        <ng-template #item let-entry >
+          <div class="flex justify-between items-center">
+            <span>{{entry[0]}}</span>
+            <span>{{entry[1]}}</span>
+          </div>
+          <p-divider />
+        </ng-template>
+        @for (entry of itemsToAmount().entries(); track $index) {
+          <ng-container *ngTemplateOutlet="item; context: { $implicit: entry }" />
+        }
+      </p-card>
+      <p-card class="w-1/2">
+        <apx-chart
+          [series]="chartOptions().series"
+          [chart]="chartOptions().chart"
+          [labels]="chartOptions().labels"
+        ></apx-chart>
+      </p-card>
+    </div>
+  </div>
+}

@@ -10,14 +10,12 @@ import {BudgetCategory} from '../../../model/budget-category/budget-category';
 import {TransactionStore} from '../../../store/transaction-store';
 import {MeterGroup, MeterItem} from 'primeng/metergroup';
 import {Divider} from 'primeng/divider';
-import {
-  ApexNonAxisChartSeries,
-  ApexResponsive,
-  ApexChart, ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
+import {RouterLink} from '@angular/router';
+import {ChartOptions} from '../../../model/chart-options';
 
 @Component({
-  selector: 'category-overview',
+  selector: 'expense-by-category-report',
   imports: [
     Card,
     Button,
@@ -28,10 +26,11 @@ import {
     Divider,
     CurrencyPipe,
     ChartComponent,
+    RouterLink,
   ],
-  templateUrl: 'category-overview.html'
+  templateUrl: 'expense-by-category-report.html'
 })
-export class CategoryOverview implements OnInit {
+export class ExpenseByCategoryReport implements OnInit {
   @Input() date: Date;
 
   protected readonly budgetStore = inject(BudgetStore);
@@ -62,19 +61,14 @@ export class CategoryOverview implements OnInit {
       labels.push(c.name);
       series.push(this.categoryToAmount().get(c.budgetCategoryId)?.value)
     });
-    const dataSet: any = {
-      datasets: [
-        {type: 'pie', data: series, labels}
-      ]
-    }
     return {series, chart: {type: "pie"}, labels};
-  })
+  });
 
   ngOnInit() {
     this.budgetStore.getBudgetCategoriesForUser(this.userStore.user().userId);
   }
 
-  ngOnChanges(changes: SimpleChanges<CategoryOverview>) {
+  ngOnChanges(changes: SimpleChanges<ExpenseByCategoryReport>) {
     if (changes.date?.currentValue) {
       const startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
       const endDate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
@@ -101,16 +95,4 @@ export class CategoryOverview implements OnInit {
     }
     this.onCategoryDialogClose();
   }
-
-  selectBudgetCategory(budgetCategory: BudgetCategory) {
-    this.budgetCategory = budgetCategory;
-    this.openCategoryDialog();
-  }
 }
-
-export type ChartOptions = {
-  series: ApexNonAxisChartSeries;
-  chart: ApexChart;
-  responsive: ApexResponsive[];
-  labels: any;
-};

@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DatePicker} from 'primeng/datepicker';
 import {DatePipe} from '@angular/common';
 import {FloatLabel} from 'primeng/floatlabel';
-import {CategoryOverview} from '../category-overview/category-overview';
+import {ExpenseByCategoryReport} from '../expense-by-category-report/expense-by-category-report';
 import {Card} from 'primeng/card';
 
 @Component({
@@ -15,7 +15,7 @@ import {Card} from 'primeng/card';
     DatePicker,
     DatePipe,
     FloatLabel,
-    CategoryOverview,
+    ExpenseByCategoryReport,
     Card
   ],
   templateUrl: 'budget-home.html'

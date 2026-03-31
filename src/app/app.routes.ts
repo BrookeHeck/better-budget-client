@@ -10,6 +10,7 @@ import {CreateExpense} from './page/transactions/create-expense/create-expense';
 import {TransactionDetail} from './page/transactions/transaction-detail/transaction-detail';
 import {CreateDeposit} from './page/transactions/create-deposit/create-deposit';
 import {AccountTransfer} from './page/accounts/account-transfer/account-transfer';
+import {BudgetCategoryOverview} from './page/budget/budget-category-overview/budget-category-overview';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'accounts', component: AccountsHome },
   { path: 'account-transfer', component: AccountTransfer },
   { path: 'budget', component: BudgetHome },
+  { path: 'category-overview/:budgetCategoryId/:month/:year', component: BudgetCategoryOverview},
   { path: 'transactions', component: TransactionHome },
   { path: 'create-expense', component: CreateExpense },
   { path: 'create-deposit', component: CreateDeposit },

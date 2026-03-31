@@ -17,7 +17,7 @@
           data.transaction.transactionType === TransactionType.TRANSFER ? 'Transfer' : '')
           }}</td>
         <td>{{data.transaction.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</td>
-        <td>{{data.account.name}}</td>
+        <td>{{data.account?.name}}</td>
         <td>{{data.transaction.dateOfTransaction}}</td>
         <td>{{data.transaction.description}}</td>
         <td>
