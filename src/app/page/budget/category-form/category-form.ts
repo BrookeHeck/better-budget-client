@@ -21,15 +21,16 @@ export class CategoryForm implements OnChanges {
   @Input() category: BudgetCategory;
   @Output() submit: EventEmitter<BudgetCategory> = new EventEmitter();
 
-  protected form: FormGroup;
+  protected form: FormGroup = new FormGroup({
+    name: new FormControl<string>(null),
+    budget: new FormControl<number>(null),
+  });
 
   ngOnChanges(changes: SimpleChanges) {
     const category = changes['category']?.currentValue;
     if(category) {
-      this.form = new FormGroup({
-        name: new FormControl<string>(category.name),
-        budget: new FormControl<number>(category.budget),
-      })
+      this.form.controls['name'].setValue(category.name);
+      this.form.controls['budget'].setValue(category.budget);
     }
   }
 

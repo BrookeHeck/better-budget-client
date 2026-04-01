@@ -13,6 +13,8 @@ import {Divider} from 'primeng/divider';
 import {ChartOptions} from '../../../model/chart-options';
 import {ChartComponent} from 'ng-apexcharts';
 import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
+import {Dialog} from 'primeng/dialog';
+import {CategoryForm} from '../category-form/category-form';
 
 @Component({
   selector: 'budget-category-overview',
@@ -24,7 +26,9 @@ import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
     Divider,
     ChartComponent,
     CurrencyPipe,
-    ConfirmDialog
+    ConfirmDialog,
+    Dialog,
+    CategoryForm
   ],
   templateUrl: 'budget-category-oveview.html'
 })
@@ -91,6 +95,16 @@ export class BudgetCategoryOverview implements OnInit {
 
   protected openEditCategoryDialog() {
     this.showEditDialog = true;
+  }
+
+  protected cancelCategoryEdit() {
+    this.showEditDialog = false;
+  }
+
+  protected async editBudgetCategory(category: BudgetCategory) {
+    const { name, budget } = category;
+    await this.budgetStore.updateBudgetCategory({...this.category(), name, budget});
+    this.cancelCategoryEdit();
   }
 
   protected onLockBudgetCategory() {

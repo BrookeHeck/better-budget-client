@@ -52,3 +52,10 @@
   confirmSeverity="danger"
   (confirm)="onConfirmLockBudgetCategory($event)"
 />
+
+<p-dialog [(visible)]="showEditDialog" (onHide)="cancelCategoryEdit()">
+  <category-form
+    [category]="category()"
+    (submit)="editBudgetCategory($event)"
+  />
+</p-dialog>
