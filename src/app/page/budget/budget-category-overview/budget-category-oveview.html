@@ -43,3 +43,12 @@
     }
   </div>
 }
+
+<confirm-dialog
+  [visible]="showConfirmLockDialog"
+  text="Are you sure you want to lock this budget category."
+  subText="Locked budget categories will no longer show up in future reports."
+  confirmLabel="Lock"
+  confirmSeverity="danger"
+  (confirm)="onConfirmLockBudgetCategory($event)"
+/>

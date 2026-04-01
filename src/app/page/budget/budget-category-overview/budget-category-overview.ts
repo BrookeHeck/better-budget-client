@@ -12,6 +12,7 @@ import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Divider} from 'primeng/divider';
 import {ChartOptions} from '../../../model/chart-options';
 import {ChartComponent} from 'ng-apexcharts';
+import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'budget-category-overview',
@@ -22,7 +23,8 @@ import {ChartComponent} from 'ng-apexcharts';
     NgTemplateOutlet,
     Divider,
     ChartComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    ConfirmDialog
   ],
   templateUrl: 'budget-category-oveview.html'
 })
@@ -38,7 +40,9 @@ export class BudgetCategoryOverview implements OnInit {
   private categoryId: WritableSignal<number> = signal(0);
   protected category: Signal<BudgetCategory> = computed(() =>
     this.budgetStore.activeCategories().find(c => c.budgetCategoryId === this.categoryId())
-  )
+  );
+  protected showEditDialog: boolean = false;
+  protected showConfirmLockDialog: boolean = false;
 
   protected itemsToAmount: Signal<Map<string, number>> = computed(() => {
     const map: Map<string, number> = new Map();
@@ -86,14 +90,21 @@ export class BudgetCategoryOverview implements OnInit {
   }
 
   protected openEditCategoryDialog() {
-
+    this.showEditDialog = true;
   }
 
   protected onLockBudgetCategory() {
-
+    this.showConfirmLockDialog = true;
   }
 
-  private onConfirmLockBudgetCategory() {
+  protected async onConfirmLockBudgetCategory(confirm: boolean) {
+    if(confirm) {
+      await this.budgetStore.updateBudgetCategoryStatus(this.category().budgetCategoryId, false);
+    }
+    this.cancelLockBudgetCategory();
+  }
 
+  protected cancelLockBudgetCategory() {
+    this.showConfirmLockDialog = false;
   }
 }

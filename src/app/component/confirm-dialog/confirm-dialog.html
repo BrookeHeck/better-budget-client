@@ -1,6 +1,6 @@
-<p-dialog [(visible)]="visible">
+<p-dialog [(visible)]="visible" [closable]="false">
   <div class="flex flex-col items-center justify-center gap-8">
-    <div>
+    <div class="flex flex-col items-center justify-center gap-3">
       <p>{{text}}</p>
       @if (subText) {
         <p>{{subText}}</p>
