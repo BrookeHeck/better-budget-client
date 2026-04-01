@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="flex flex-col items-center gap-6">
+  <p-floatlabel>
+    <p-input-number
+      formControlName="amount"
+      inputId="payment-amount"
+      mode="decimal"
+      [minFractionDigits]="2"
+      [maxFractionDigits]="2"
+      [min]="0"
+    />
+    <label for="payment-amount">Payment Amount</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <p-select
+      inputId="payment-interval-select"
+      [options]="paymentIntervalOptions"
+      optionLabel="label"
+      optionValue="value"
+      formControlName="paymentInterval"
+    />
+    <label for="payment-interval-select">Payment Interval</label>
+  </p-floatlabel>
+  <p-floatlabel>
+    <p-date-picker formControlName="nextPaymentDate" inputId="next-payment-date" />
+    <label for="next-payment-date">Date of Transaction</label>
+  </p-floatlabel>
+  <div>
+    <p-checkbox formControlName="notifications"  [binary]="true" inputId="notifications" />
+    <label for="notifications">Receive Notifications</label>
+  </div>
+  <p-button label="Submit" (onClick)="onSubmit()" />
+</form>

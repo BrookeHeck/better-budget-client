@@ -3,7 +3,7 @@ import {Login} from './page/auth/login/login';
 import {Register} from './page/auth/register/register';
 import {AccountsHome} from './page/accounts/accounts-home/accounts-home';
 import {TransactionHome} from './page/transactions/transaction-home/transaction-home';
-import {RecurringPayments} from './page/recurring-payments/recurring-payments';
+import {RecurringPaymentsHome} from './page/recurring-payments/recurring-payment-home/recurring-payments-home';
 import {Reports} from './page/reports/reports';
 import {BudgetHome} from './page/budget/budget-home/budget-home';
 import {CreateExpense} from './page/transactions/create-expense/create-expense';
@@ -24,6 +24,6 @@ export const routes: Routes = [
   { path: 'create-expense', component: CreateExpense },
   { path: 'create-deposit', component: CreateDeposit },
   { path: 'transaction-detail/:transactionId', component: TransactionDetail },
-  { path: 'recurring-payments', component: RecurringPayments },
+  { path: 'recurring-payments', component: RecurringPaymentsHome },
   { path: 'reports', component: Reports },
 ];
