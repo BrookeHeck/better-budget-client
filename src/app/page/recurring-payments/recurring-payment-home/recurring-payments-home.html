@@ -1,6 +1,14 @@
 <div class="flex flex-col gap-4">
   <ng-template #createButton>
-    <p-button label="Create Recurring Payment" />
+    <p-button label="Create Recurring Payment" (onClick)="openCreateEditDialog()" />
   </ng-template>
   <page-header title="Recurring Payments" [end]="createButton" />
 </div>
+
+<p-dialog
+  [(visible)]="showCreateEditDialog"
+  (onHide)="closeCreateEditDialog()"
+  [style]="{ width: '25rem', height: '30rem' }"
+  [header]="recurringPayment.recurringPaymentId ? 'Edit Payment' : 'Create Payment' " >
+  <recurring-payment-form [recurringPayment]="recurringPayment" (submit)="submitForm($event)" />
+</p-dialog>

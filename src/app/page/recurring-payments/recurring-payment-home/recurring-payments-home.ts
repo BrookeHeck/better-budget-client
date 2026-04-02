@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import {PageHeader} from '../../../component/page-header/page-header';
 import {Button} from 'primeng/button';
 import {RecurringPayment} from '../../../model/recurring-payment/recurring-payment';
+import {Dialog} from 'primeng/dialog';
+import {RecurringPaymentForm} from '../recurring-payment-form/recurring-payment-form';
 
 @Component({
   selector: 'recurring-payments',
   imports: [
     PageHeader,
-    Button
+    Button,
+    Dialog,
+    RecurringPaymentForm
   ],
   templateUrl: './recurring-payments-home.html',
 })
@@ -23,6 +27,10 @@ export class RecurringPaymentsHome {
   protected closeCreateEditDialog() {
     this.showCreateEditDialog = false;
     this.recurringPayment = new RecurringPayment();
+  }
+
+  protected submitForm(recurringPayment: RecurringPayment) {
+    this.closeCreateEditDialog();
   }
 
 

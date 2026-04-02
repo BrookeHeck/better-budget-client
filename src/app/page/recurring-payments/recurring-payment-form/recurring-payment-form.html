@@ -1,17 +1,11 @@
-<form [formGroup]="form" class="flex flex-col items-center gap-6">
+<form [formGroup]="form" class="flex flex-col items-center gap-6 mt-5">
   <p-floatlabel>
-    <p-input-number
-      formControlName="amount"
-      inputId="payment-amount"
-      mode="decimal"
-      [minFractionDigits]="2"
-      [maxFractionDigits]="2"
-      [min]="0"
-    />
-    <label for="payment-amount">Payment Amount</label>
+    <p-date-picker class="w-75" formControlName="nextPaymentDate" inputId="next-payment-date" />
+    <label for="next-payment-date">Next Payment Date</label>
   </p-floatlabel>
   <p-floatlabel>
     <p-select
+      class="w-75"
       inputId="payment-interval-select"
       [options]="paymentIntervalOptions"
       optionLabel="label"
@@ -21,10 +15,18 @@
     <label for="payment-interval-select">Payment Interval</label>
   </p-floatlabel>
   <p-floatlabel>
-    <p-date-picker formControlName="nextPaymentDate" inputId="next-payment-date" />
-    <label for="next-payment-date">Date of Transaction</label>
+    <p-input-number
+      class="w-75"
+      formControlName="amount"
+      inputId="payment-amount"
+      mode="decimal"
+      [minFractionDigits]="2"
+      [maxFractionDigits]="2"
+      [min]="0"
+    />
+    <label for="payment-amount">Payment Amount</label>
   </p-floatlabel>
-  <div>
+  <div class="flex items-center justify-center gap-4">
     <p-checkbox formControlName="notifications"  [binary]="true" inputId="notifications" />
     <label for="notifications">Receive Notifications</label>
   </div>
