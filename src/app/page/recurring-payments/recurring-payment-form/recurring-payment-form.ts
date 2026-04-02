@@ -8,6 +8,7 @@ import {InputNumber} from 'primeng/inputnumber';
 import {DatePicker} from 'primeng/datepicker';
 import {Checkbox} from 'primeng/checkbox';
 import {Button} from 'primeng/button';
+import {InputText} from 'primeng/inputtext';
 
 @Component({
   selector: 'recurring-payment-form',
@@ -18,7 +19,8 @@ import {Button} from 'primeng/button';
     InputNumber,
     DatePicker,
     Checkbox,
-    Button
+    Button,
+    InputText
   ],
   templateUrl: 'recurring-payment-form.html',
 })
@@ -31,6 +33,7 @@ export class RecurringPaymentForm implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
+      name: new FormControl<string>(this.recurringPayment.name),
       amount: new FormControl<number>(this.recurringPayment.amount),
       paymentInterval: new FormControl<PaymentInterval>(this.recurringPayment.paymentInterval),
       nextPaymentDate: new FormControl<Date>(this.recurringPayment.nextPaymentDate),
@@ -42,8 +45,8 @@ export class RecurringPaymentForm implements OnInit {
   }
 
   onSubmit() {
-    const {amount, paymentInterval, nextPaymentDate, notifications} = this.form.getRawValue();
-    this.submit.emit({...this.recurringPayment, amount, paymentInterval, nextPaymentDate, notifications});
+    const {amount, paymentInterval, nextPaymentDate, notifications, name} = this.form.getRawValue();
+    this.submit.emit({...this.recurringPayment, amount, paymentInterval, nextPaymentDate, notifications, name});
   }
 
 }

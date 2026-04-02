@@ -1,5 +1,15 @@
 <form [formGroup]="form" class="flex flex-col items-center gap-6 mt-5">
   <p-floatlabel>
+    <input
+      pInputText
+      type="text"
+      id="recurring-payment-name"
+      formControlName="name"
+      class="w-75"
+    />
+    <label for="recurring-payment-name">Name</label>
+  </p-floatlabel>
+  <p-floatlabel>
     <p-date-picker class="w-75" formControlName="nextPaymentDate" inputId="next-payment-date" />
     <label for="next-payment-date">Next Payment Date</label>
   </p-floatlabel>
