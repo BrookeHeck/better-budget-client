@@ -10,6 +10,7 @@ import {Card} from 'primeng/card';
 import {RecurringPaymentTable} from '../recurring-payment-table/recurring-payment-table';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
+import {RecurringPaymentCalendar} from '../recurring-payment-calender/recurring-payment-calendar';
 
 @Component({
   selector: 'recurring-payments',
@@ -21,7 +22,8 @@ import {FormsModule} from '@angular/forms';
     Card,
     RecurringPaymentTable,
     SelectButton,
-    FormsModule
+    FormsModule,
+    RecurringPaymentCalendar
   ],
   templateUrl: './recurring-payments-home.html',
 })
@@ -32,7 +34,7 @@ export class RecurringPaymentsHome implements OnInit {
   protected showCreateEditDialog: boolean;
   protected recurringPayment: RecurringPayment = new RecurringPayment();
 
-  protected selectButtonOptions: splitButtonOption[] = ['Table', 'Calender'];
+  protected selectButtonOptions: splitButtonOption[] = ['Table', 'Calendar'];
   protected selectedOption: splitButtonOption = 'Table';
 
   ngOnInit() {
@@ -66,4 +68,4 @@ export class RecurringPaymentsHome implements OnInit {
   }
 }
 
-type splitButtonOption = 'Calender' | 'Table';
+type splitButtonOption = 'Calendar' | 'Table';

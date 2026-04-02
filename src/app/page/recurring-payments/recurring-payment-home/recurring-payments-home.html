@@ -11,7 +11,7 @@
         (edit)="openCreateEditDialog($event)"
       />
     } @else {
-      <div>CALENDAR</div>
+      <recurring-payment-calendar [recurringPayments]="recurringPaymentStore.recurringPayments()" />
     }
   </p-card>
 </div>
