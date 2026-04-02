@@ -29,6 +29,8 @@ export class RecurringPaymentCalendar implements OnChanges {
     return calendar;
   });
 
+  protected daysHeader: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   ngOnChanges(changes: SimpleChanges<RecurringPaymentCalendar>) {
     const value: RecurringPayment[] = changes.recurringPayments?.currentValue;
     if(value) {

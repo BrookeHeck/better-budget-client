@@ -1,15 +1,19 @@
 @let blankDivs = Array(6 - calendarData()[0].dayOfWeek);
 
 <div class="flex flex-wrap">
+  @for (header of daysHeader; track header) {
+    <div class="w-1/8 m-1 mb-2 font-bold border-b text-center border-gray-500 py-1">{{header}}</div>
+  }
   @for (i of blankDivs; track $index) {
-    <div class="w-1/7 h-50"></div>
+    <div class="w-1/8 h-40 m-1"></div>
   }
   @for (data of calendarData(); track $index) {
-    <div class="border border-gray-500 w-1/7 h-50 overflow-y-scroll flex-col">
+    <div class="border border-gray-500 rounded-sm w-1/8 h-40 overflow-y-scroll flex-col m-1">
       <span class="font-bold ml-2">{{data.dayOfMonth}}</span>
       @for (event of data.events; track event.recurringPaymentId) {
         <div class="m-2 flex flex-col items-start justify-start">
-          <div class="text-sm justify-between p-2 w-full bg-blue-200 border border-blue-500 rounded-md cursor-pointer">
+          <div
+            class=" text-center text-sm justify-between py-1 w-full bg-blue-100 hover:bg-blue-300 border border-blue-400 rounded-md cursor-pointer">
             {{event.name}}
           </div>
         </div>
