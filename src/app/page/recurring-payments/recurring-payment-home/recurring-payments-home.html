@@ -3,6 +3,17 @@
     <p-button label="Create Recurring Payment" (onClick)="openCreateEditDialog()" />
   </ng-template>
   <page-header title="Recurring Payments" [end]="createButton" />
+  <p-card>
+    <p-select-button [options]="selectButtonOptions" [(ngModel)]="selectedOption" fluid class="mb-6" />
+    @if (selectedOption === 'Table') {
+      <recurring-payment-table
+        [recurringPayments]="recurringPaymentStore.recurringPayments()"
+        (edit)="openCreateEditDialog($event)"
+      />
+    } @else {
+      <div>CALENDAR</div>
+    }
+  </p-card>
 </div>
 
 <p-dialog

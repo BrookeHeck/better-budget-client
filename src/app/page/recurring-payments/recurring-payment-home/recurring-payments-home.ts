@@ -6,6 +6,10 @@ import {Dialog} from 'primeng/dialog';
 import {RecurringPaymentForm} from '../recurring-payment-form/recurring-payment-form';
 import {RecurringPaymentStore} from '../../../store/recurring-payment-store';
 import {UserStore} from '../../../store/user-store';
+import {Card} from 'primeng/card';
+import {RecurringPaymentTable} from '../recurring-payment-table/recurring-payment-table';
+import {SelectButton} from 'primeng/selectbutton';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'recurring-payments',
@@ -13,7 +17,11 @@ import {UserStore} from '../../../store/user-store';
     PageHeader,
     Button,
     Dialog,
-    RecurringPaymentForm
+    RecurringPaymentForm,
+    Card,
+    RecurringPaymentTable,
+    SelectButton,
+    FormsModule
   ],
   templateUrl: './recurring-payments-home.html',
 })
@@ -24,12 +32,15 @@ export class RecurringPaymentsHome implements OnInit {
   protected showCreateEditDialog: boolean;
   protected recurringPayment: RecurringPayment = new RecurringPayment();
 
+  protected selectButtonOptions: splitButtonOption[] = ['Table', 'Calender'];
+  protected selectedOption: splitButtonOption = 'Table';
+
   ngOnInit() {
     this.recurringPaymentStore.loadRecurringPaymentsForUser(this.userStore.user().userId);
   }
 
   protected openCreateEditDialog(recurringPayment?: RecurringPayment) {
-    if(recurringPayment) this.recurringPayment = recurringPayment;
+    if(recurringPayment) this.recurringPayment = {...recurringPayment};
     this.showCreateEditDialog = true;
   }
 
@@ -54,3 +65,5 @@ export class RecurringPaymentsHome implements OnInit {
     await this.recurringPaymentStore.updateRecurringPayment(recurringPayment);
   }
 }
+
+type splitButtonOption = 'Calender' | 'Table';
