@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges, WritableSignal} from '@angular/core';
 import {RecurringPayment} from '../../../model/recurring-payment/recurring-payment';
 import {TableModule} from 'primeng/table';
 import {Button} from 'primeng/button';
-import {TransactionType} from '../../../model/transaction/transaction-type';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 
 @Component({
@@ -15,9 +14,18 @@ import {CurrencyPipe, DatePipe} from '@angular/common';
   ],
   templateUrl: 'recurring-payment-table.html'
 })
-export class RecurringPaymentTable {
+export class RecurringPaymentTable implements OnChanges {
   @Input() recurringPayments: RecurringPayment[];
   @Output() edit: EventEmitter<RecurringPayment> = new EventEmitter();
   @Output() delete: EventEmitter<number> = new EventEmitter();
-  protected readonly TransactionType = TransactionType;
+
+  protected tableData: WritableSignal<RecurringPayment[]> = signal([])
+
+  ngOnChanges(changes: SimpleChanges<RecurringPaymentTable>) {
+    if(changes.recurringPayments?.currentValue) {
+      this.tableData.update(() => [...changes.recurringPayments.currentValue]);
+    }
+  }
+
+
 }

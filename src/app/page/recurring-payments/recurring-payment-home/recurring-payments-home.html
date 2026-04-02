@@ -4,7 +4,7 @@
   </ng-template>
   <page-header title="Recurring Payments" [end]="createButton" />
   <p-card>
-    <p-select-button [options]="selectButtonOptions" [(ngModel)]="selectedOption" fluid class="mb-6" />
+    <p-select-button [options]="selectButtonOptions" [(ngModel)]="selectedOption" class="mb-6"/>
     @if (selectedOption === 'Table') {
       <recurring-payment-table
         [recurringPayments]="recurringPaymentStore.recurringPayments()"

@@ -36,8 +36,8 @@ export class RecurringPaymentForm implements OnInit, OnChanges {
       name: new FormControl<string>(this.recurringPayment.name),
       paymentAmount: new FormControl<number>(this.recurringPayment.paymentAmount),
       paymentInterval: new FormControl<PaymentInterval>(this.recurringPayment.paymentInterval),
-      nextPaymentDate: new FormControl<Date>(this.recurringPayment.nextPaymentDate),
-      notifications: new FormControl<boolean>(this.recurringPayment.notifications)
+      nextPaymentDate: new FormControl<Date>(this.recurringPayment.nextPaymentDate ?? new Date()),
+      notifications: new FormControl<boolean>(this.recurringPayment.notifications ?? false)
     });
     this.paymentIntervalOptions = Object.values(PaymentInterval).map(p => (
       {label: PaymentIntervalDisplay[p], value: p}
@@ -47,7 +47,7 @@ export class RecurringPaymentForm implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges<RecurringPaymentForm>) {
     const currVal: RecurringPayment = changes.recurringPayment?.currentValue;
     if(currVal && this.form) {
-      currVal.nextPaymentDate = new Date(currVal.nextPaymentDate);
+      currVal.nextPaymentDate = currVal.nextPaymentDate ? new Date(currVal.nextPaymentDate) : new Date();
       this.form.reset({...changes.recurringPayment.currentValue})
     }
   }

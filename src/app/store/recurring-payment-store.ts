@@ -27,8 +27,8 @@ export const RecurringPaymentStore = signalStore(
       patchState(store, {loading: true});
       const created = await paymentService.createRecurringPayment(recurringPayment);
       patchState(store, (state) => {
-        const recurringPayments = state.recurringPayments
-          .map(p => p.recurringPaymentId === created.recurringPaymentId ? created : p);
+        const recurringPayments = [...state.recurringPayments, created];
+        recurringPayments.sort(this.sort);
         return {loading: false, recurringPayments}
       });
     },
@@ -39,6 +39,7 @@ export const RecurringPaymentStore = signalStore(
       patchState(store, (state) => {
         const recurringPayments = state.recurringPayments
           .map(p => p.recurringPaymentId === updated.recurringPaymentId ? updated : p);
+        recurringPayments.sort(this.sort)
         return {loading: false, recurringPayments}
       });
     },
@@ -52,5 +53,11 @@ export const RecurringPaymentStore = signalStore(
         return {loading: false, recurringPayments}
       });
     },
+
+    sort(a: RecurringPayment, b: RecurringPayment) {
+      const dateDiff = new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime();
+      return dateDiff !== 0 ? dateDiff : a.paymentAmount - b.paymentAmount;
+    }
+
   }))
 )
