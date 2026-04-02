@@ -26,6 +26,7 @@ import {InputText} from 'primeng/inputtext';
 })
 export class RecurringPaymentForm implements OnInit, OnChanges {
   @Input() recurringPayment: RecurringPayment;
+  @Input() readOnlyForm: boolean = false;
   @Output() submit: EventEmitter<RecurringPayment> = new EventEmitter();
 
   protected form: FormGroup;
@@ -42,6 +43,7 @@ export class RecurringPaymentForm implements OnInit, OnChanges {
     this.paymentIntervalOptions = Object.values(PaymentInterval).map(p => (
       {label: PaymentIntervalDisplay[p], value: p}
     ));
+    if(this.readOnlyForm) this.form.disable();
   }
 
   ngOnChanges(changes: SimpleChanges<RecurringPaymentForm>) {

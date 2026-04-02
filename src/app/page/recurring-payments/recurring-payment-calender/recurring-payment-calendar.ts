@@ -1,11 +1,25 @@
-import {Component, computed, Input, OnChanges, Signal, signal, SimpleChanges, WritableSignal} from '@angular/core';
+import {
+  Component,
+  computed, EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  Signal,
+  signal,
+  SimpleChanges,
+  WritableSignal
+} from '@angular/core';
 import {RecurringPayment} from '../../../model/recurring-payment/recurring-payment';
 import {Button} from 'primeng/button';
+import {Dialog} from 'primeng/dialog';
+import {RecurringPaymentForm} from '../recurring-payment-form/recurring-payment-form';
 
 @Component({
   selector: 'recurring-payment-calendar',
   imports: [
-    Button
+    Button,
+    Dialog,
+    RecurringPaymentForm
   ],
   templateUrl: 'recurring-payment-calendar.html'
 })
@@ -30,6 +44,9 @@ export class RecurringPaymentCalendar implements OnChanges {
   });
 
   protected daysHeader: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  protected selectedPayment: RecurringPayment = new RecurringPayment();
+  protected showDetailsDialog: boolean = false;
 
   ngOnChanges(changes: SimpleChanges<RecurringPaymentCalendar>) {
     const value: RecurringPayment[] = changes.recurringPayments?.currentValue;
@@ -64,6 +81,16 @@ export class RecurringPaymentCalendar implements OnChanges {
 
   protected selectPreviousMonth(): void {
     this.selectedDate.update(date => new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()));
+  }
+
+  protected showDetails(selected: RecurringPayment) {
+    this.selectedPayment = selected;
+    this.showDetailsDialog = true;
+  }
+
+  protected closeDialog() {
+    this.selectedPayment = new RecurringPayment();
+    this.showDetailsDialog = false;
   }
 
   protected readonly Array = Array;

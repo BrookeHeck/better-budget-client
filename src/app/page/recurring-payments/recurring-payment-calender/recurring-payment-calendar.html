@@ -11,13 +11,22 @@
     <div class="border border-gray-500 rounded-sm w-1/8 h-40 overflow-y-scroll flex-col m-1">
       <span class="font-bold ml-2">{{data.dayOfMonth}}</span>
       @for (event of data.events; track event.recurringPaymentId) {
-        <div class="m-2 flex flex-col items-start justify-start">
-          <div
-            class=" text-center text-sm justify-between py-1 w-full bg-blue-100 hover:bg-blue-300 border border-blue-400 rounded-md cursor-pointer">
-            {{event.name}}
-          </div>
+        <div class="px-3 py-1">
+          <p-button
+            variant="outlined"
+            size="small"
+            [label]="event.name"
+            styleClass="w-full"
+            severity="info"
+            (onClick)="showDetails(event)"
+          />
+
         </div>
       }
     </div>
   }
 </div>
+
+<p-dialog [(visible)]="showDetailsDialog" (onHide)="closeDialog()">
+  <recurring-payment-form [recurringPayment]="selectedPayment" [readOnlyForm]="true" />
+</p-dialog>

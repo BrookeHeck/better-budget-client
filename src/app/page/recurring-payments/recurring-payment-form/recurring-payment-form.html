@@ -40,5 +40,7 @@
     <p-checkbox formControlName="notifications"  [binary]="true" inputId="notifications" />
     <label for="notifications">Receive Notifications</label>
   </div>
-  <p-button label="Submit" (onClick)="onSubmit()" />
+  @if (!readOnlyForm) {
+    <p-button label="Submit" (onClick)="onSubmit()" />
+  }
 </form>
