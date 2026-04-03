@@ -9,7 +9,12 @@
   }
   @for (data of calendarData(); track $index) {
     <div class="border border-gray-500 rounded-sm w-1/8 h-40 overflow-y-scroll flex-col m-1">
-      <span class="font-bold ml-2">{{data.dayOfMonth}}</span>
+      <div class="flex justify-between mt-1">
+        <span class="font-bold ml-2">{{data.dayOfMonth}}</span>
+        @if (data.dayTotal) {
+          <span class="mr-2 text-sm">{{data.dayTotal | currency : 'USD' : 'symbol' : '1.2-2'}}</span>
+        }
+      </div>
       @for (event of data.events; track event.recurringPaymentId) {
         <div class="px-3 py-1">
           <p-button

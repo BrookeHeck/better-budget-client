@@ -13,13 +13,15 @@ import {RecurringPayment} from '../../../model/recurring-payment/recurring-payme
 import {Button} from 'primeng/button';
 import {Dialog} from 'primeng/dialog';
 import {RecurringPaymentForm} from '../recurring-payment-form/recurring-payment-form';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'recurring-payment-calendar',
   imports: [
     Button,
     Dialog,
-    RecurringPaymentForm
+    RecurringPaymentForm,
+    CurrencyPipe
   ],
   templateUrl: 'recurring-payment-calendar.html'
 })
@@ -37,7 +39,10 @@ export class RecurringPaymentCalendar implements OnChanges {
       const date = new Date(firstDay.getFullYear(), firstDay.getMonth(), i);
       const events: RecurringPayment[] =
         this.calendarEvents().filter(e => this.isSameDay(date, e.nextPaymentDate));
-      calendar.push({dayOfWeek: dayTracker, dayOfMonth: i, events});
+      const dayTotal = events.reduce((a, e) => (
+        a + (e.paymentAmount ?? 0)
+      ), 0)
+      calendar.push({dayOfWeek: dayTracker, dayOfMonth: i, events, dayTotal});
       dayTracker = dayTracker === 6 ? 0 : dayTracker + 1;
     }
     return calendar;
@@ -99,5 +104,6 @@ export class RecurringPaymentCalendar implements OnChanges {
 type CalendarDay = {
   dayOfWeek: number;
   dayOfMonth: number;
+  dayTotal: number;
   events: RecurringPayment[];
 }
