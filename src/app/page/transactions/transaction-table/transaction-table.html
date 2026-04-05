@@ -1,4 +1,5 @@
 <p-card>
+  <p-button label="Filter" (onClick)="onShowFilters()" />
   <p-table [value]="transactions">
     <ng-template #header>
       <tr>
@@ -53,3 +54,5 @@
   confirmSeverity="danger"
   (confirm)="onConfirmDeleteTransaction($event)"
 />
+
+<transaction-table-filter [visible]="showFilters" />

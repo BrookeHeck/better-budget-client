@@ -10,6 +10,7 @@ import {TransactionStore} from '../../../store/transaction-store';
 import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
 import {TransactionType} from '../../../model/transaction/transaction-type';
 import {BudgetCategory} from '../../../model/budget-category/budget-category';
+import {TransactionTableFilter} from './transaction-table-filter/transaction-table-filter';
 
 @Component({
   selector: 'transaction-table',
@@ -20,7 +21,8 @@ import {BudgetCategory} from '../../../model/budget-category/budget-category';
     Button,
     RouterLink,
     NgClass,
-    ConfirmDialog
+    ConfirmDialog,
+    TransactionTableFilter
   ],
   standalone: true,
   templateUrl: 'transaction-table.html'
@@ -32,6 +34,11 @@ export class TransactionTable {
 
   protected showConfirmDialog: boolean = false;
   private transactionIdToDelete: number;
+  protected showFilters: boolean = false;
+
+  onShowFilters() {
+    this.showFilters = true;
+  }
 
   onDeleteTransaction(transactionId: number) {
     this.showConfirmDialog = true;

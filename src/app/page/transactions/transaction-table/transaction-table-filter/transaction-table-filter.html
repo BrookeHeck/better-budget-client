@@ -1,0 +1,35 @@
+<p-drawer [(visible)]="visible" header="Filter Transactions">
+  <form [formGroup]="filterForm" class="flex flex-col gap-8">
+    <p-float-label>
+      <p-date-picker inputId="date-of-transaction-from" [readonlyInput]="true" formControlName="startDate" class="w-75" />
+      <label for="date-of-transaction-from">Start Date</label>
+    </p-float-label>
+    <p-float-label>
+      <p-date-picker inputId="date-of-transaction-to" [readonlyInput]="true" formControlName="endDate" class="w-75" />
+      <label for="date-of-transaction-to">End Date</label>
+    </p-float-label>
+    <p-float-label>
+      <p-select
+        [options]="accountStore.accounts()"
+        optionValue="accountId"
+        optionLabel="name"
+        inputId="account"
+        formControlName="account"
+        class="w-75"
+      />
+      <label for="account" >Account</label>
+    </p-float-label>
+    <p-float-label>
+      <p-select
+        [options]="budgetStore.categories()"
+        optionValue="categoryId"
+        optionLabel="name"
+        inputId="budget-category"
+        formControlName="category"
+        class="w-75"
+      />
+      <label for="budget-category" >Budget Category</label>
+    </p-float-label>
+    <p-button label="Submit" (onClick)="applyFilters()" />
+  </form>
+</p-drawer>

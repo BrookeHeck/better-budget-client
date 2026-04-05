@@ -32,25 +32,24 @@ export class TransactionRequests {
     return this.http.get<Transaction[]>(`${this.endpoint}/user/${userId}`, params);
   }
 
-  public getTransactionsWithinDateRange(userId: number, startDate?: Date, endDate?: Date): Promise<Transaction[]> {
+  public getTransactionsForFilters(
+    userId: number, startDate?: Date, endDate?: Date, accountId?: number, categoryId?: number): Promise<Transaction[]> {
     if(!startDate || !endDate) {
       startDate = this.dateService.getCurrentMonthStartDate();
       endDate = new Date();
     }
     const startDateParam: string = this.dateService.formatDate(startDate);
     const endDateParam: string = this.dateService.formatDate(endDate);
-    const params: HttpParams = new HttpParams()
+    let params: HttpParams = new HttpParams()
       .set('startDate', startDateParam)
       .set('endDate', endDateParam);
-    return this.getTransactions(userId, params);
-  }
-
-  public getTransactionsWithinYear(userId: number, year: number): Promise<Transaction[]> {
-    const startDate: string = this.dateService.formatDate(this.dateService.getYearStartDate(year));
-    const endDate: string = this.dateService.formatDate(this.dateService.getYearEndDate(year));
-    const params: HttpParams = new HttpParams();
-    params.set('startDate', startDate);
-    params.set('endDate', endDate);
+    if(accountId) {
+      params = params.set('account', accountId);
+    }
+    if(categoryId) {
+      params = params.set('category', categoryId);
+    }
+    console.log(params)
     return this.getTransactions(userId, params);
   }
 

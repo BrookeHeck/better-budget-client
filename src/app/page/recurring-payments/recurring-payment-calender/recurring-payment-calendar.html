@@ -32,6 +32,6 @@
   }
 </div>
 
-<p-dialog [(visible)]="showDetailsDialog" (onHide)="closeDialog()">
+<p-dialog [(visible)]="showDetailsDialog" (onHide)="closeDialog()" [header]="selectedPayment.name">
   <recurring-payment-form [recurringPayment]="selectedPayment" [readOnlyForm]="true" />
 </p-dialog>

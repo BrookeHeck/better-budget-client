@@ -22,9 +22,10 @@ export const TransactionStore = signalStore(
       .filter(t => t.transactionType === TransactionType.EXPENSE))
   })),
   withMethods((store, transactionService = inject(TransactionRequests)) => ({
-    async loadAllTransactions(userId: number, startDate?: Date, endDate?: Date) {
+    async loadAllTransactions(userId: number, startDate?: Date, endDate?: Date, accountId?: number, categoryId?: number) {
       patchState(store, {loading: true});
-      const transactions = await transactionService.getTransactionsWithinDateRange(userId, startDate, endDate);
+      const transactions =
+        await transactionService.getTransactionsForFilters(userId, startDate, endDate, accountId, categoryId);
       patchState(store, {loading: false, transactions});
     },
     async createTransaction(transaction: Transaction): Promise<Transaction> {
