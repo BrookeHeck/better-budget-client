@@ -1,5 +1,10 @@
 <p-card>
-  <p-button label="Filter" (onClick)="toggleFilterDrawer()" />
+  <div class="flex gap-2 my-4">
+    <p-button label="Filters" (onClick)="toggleFilterDrawer()" class="mr-3" />
+    @for (filter of filterSummary; track $index) {
+      <p-chip [label]="filter" class="text-xs" />
+    }
+  </div>
   <p-table [value]="transactions">
     <ng-template #header>
       <tr>
@@ -55,4 +60,4 @@
   (confirm)="onConfirmDeleteTransaction($event)"
 />
 
-<transaction-table-filter [visible]="showFilters" (hide)="toggleFilterDrawer()" />
+<transaction-table-filter [visible]="showFilters" (hide)="toggleFilterDrawer()" (filterSummary)="updateFilterSummary($event)" />

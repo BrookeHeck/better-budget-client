@@ -11,6 +11,7 @@ import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
 import {TransactionType} from '../../../model/transaction/transaction-type';
 import {BudgetCategory} from '../../../model/budget-category/budget-category';
 import {TransactionTableFilter} from './transaction-table-filter/transaction-table-filter';
+import {Chip} from 'primeng/chip';
 
 @Component({
   selector: 'transaction-table',
@@ -22,7 +23,8 @@ import {TransactionTableFilter} from './transaction-table-filter/transaction-tab
     RouterLink,
     NgClass,
     ConfirmDialog,
-    TransactionTableFilter
+    TransactionTableFilter,
+    Chip
   ],
   standalone: true,
   templateUrl: 'transaction-table.html'
@@ -35,9 +37,14 @@ export class TransactionTable {
   protected showConfirmDialog: boolean = false;
   private transactionIdToDelete: number;
   protected showFilters: boolean = false;
+  protected filterSummary: string[] = [];
 
   toggleFilterDrawer() {
     this.showFilters = !this.showFilters;
+  }
+
+  updateFilterSummary(appliedFilters: string[]) {
+    this.filterSummary = [...appliedFilters];
   }
 
   onDeleteTransaction(transactionId: number) {

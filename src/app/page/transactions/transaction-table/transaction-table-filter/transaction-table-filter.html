@@ -11,7 +11,6 @@
     <p-float-label>
       <p-select
         [options]="accountStore.accounts()"
-        optionValue="accountId"
         optionLabel="name"
         inputId="account"
         formControlName="account"
@@ -22,7 +21,6 @@
     <p-float-label>
       <p-select
         [options]="budgetStore.categories()"
-        optionValue="budgetCategoryId"
         optionLabel="name"
         inputId="budget-category"
         formControlName="category"
@@ -30,6 +28,9 @@
       />
       <label for="budget-category">Budget Category</label>
     </p-float-label>
-    <p-button label="Submit" (onClick)="applyFilters()" />
+    <div class="flex gap-4">
+      <p-button label="Submit" (onClick)="applyFilters()" />
+      <p-button label="Clear Filters" severity="danger" variant="outlined" (onClick)="clearFilters()" />
+    </div>
   </form>
 </p-drawer>
