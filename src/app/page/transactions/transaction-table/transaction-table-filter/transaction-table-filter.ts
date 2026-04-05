@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {TransactionStore} from '../../../../store/transaction-store';
 import {Drawer} from 'primeng/drawer';
 import {AccountStore} from '../../../../store/account-store';
@@ -25,6 +25,7 @@ import {Button} from 'primeng/button';
 })
 export class TransactionTableFilter implements OnInit {
   @Input() visible: boolean;
+  @Output() hide: EventEmitter<void> = new EventEmitter();
 
   private readonly transactionStore = inject(TransactionStore);
   protected readonly accountStore = inject(AccountStore);
@@ -48,10 +49,8 @@ export class TransactionTableFilter implements OnInit {
   async applyFilters() {
     const userId = this.userStore.user().userId;
     const {startDate, endDate, account, category} = this.filterForm.value;
-    console.log(account);
-    console.log(category)
     await this.transactionStore.loadAllTransactions(userId, startDate, endDate, account, category);
-    this.visible = false;
+    this.hide.emit();
   }
 
 }

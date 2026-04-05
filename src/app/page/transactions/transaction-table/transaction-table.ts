@@ -36,8 +36,8 @@ export class TransactionTable {
   private transactionIdToDelete: number;
   protected showFilters: boolean = false;
 
-  onShowFilters() {
-    this.showFilters = true;
+  toggleFilterDrawer() {
+    this.showFilters = !this.showFilters;
   }
 
   onDeleteTransaction(transactionId: number) {

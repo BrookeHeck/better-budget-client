@@ -12,10 +12,6 @@ export class TransactionRequests {
   private readonly dateService = inject(DateService);
   private readonly endpoint = 'transaction';
 
-  public getTransaction(transactionId: number): Promise<Transaction> {
-    return this.http.get<Transaction>(`${this.endpoint}/${transactionId}`);
-  }
-
   public createTransaction(transaction: Transaction): Promise<Transaction> {
     return this.http.post<Transaction, Transaction>(this.endpoint, transaction);
   }
@@ -49,7 +45,6 @@ export class TransactionRequests {
     if(categoryId) {
       params = params.set('category', categoryId);
     }
-    console.log(params)
     return this.getTransactions(userId, params);
   }
 
