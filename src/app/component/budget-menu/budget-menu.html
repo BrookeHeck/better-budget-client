@@ -5,6 +5,12 @@
         <div class="flex gap-4 justify-center items-center">
           <p-avatar shape="circle" />
           <p-button
+            [icon]="darkMode ? 'pi pi-sun' : 'pi pi-moon'"
+            [rounded]="true"
+            (onClick)="toggleMode()"
+            severity="secondary"
+          />
+          <p-button
             label="Logout"
             icon="pi pi-sign-out"
             variant="text"

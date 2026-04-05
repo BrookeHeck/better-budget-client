@@ -1,4 +1,4 @@
-import {Component, computed, inject, Signal} from '@angular/core';
+import {Component, computed, EventEmitter, inject, OnInit, Output, Signal} from '@angular/core';
 import {UserStore} from '../../store/user-store';
 import {MenuItem} from 'primeng/api';
 import {Menubar} from 'primeng/menubar';
@@ -16,12 +16,16 @@ import {RouterLink} from '@angular/router';
   ],
   templateUrl: './budget-menu.html',
 })
-export class BudgetMenu {
-  protected readonly userStore = inject(UserStore)
+export class BudgetMenu implements OnInit {
+  @Output() switchMode: EventEmitter<void> = new EventEmitter();
+
+  protected readonly userStore = inject(UserStore);
 
   protected menuItems: Signal<MenuItem[]> = computed(() => {
     return this.userStore.authenticated() ? this.userItems : this.authItems;
-  })
+  });
+
+  protected darkMode: boolean = false;
 
   private authItems: MenuItem[] = [
     {
@@ -64,7 +68,21 @@ export class BudgetMenu {
     }
   ];
 
+  ngOnInit() {
+    const mode = localStorage.getItem('mode');
+    if(mode === 'dark') {
+      this.toggleMode();
+    }
+  }
+
   protected logout() {
     this.userStore.logout();
+  }
+
+  protected toggleMode() {
+    this.darkMode = !this.darkMode;
+    const mode = this.darkMode ? 'dark' : 'light';
+    localStorage.setItem('mode', mode);
+    this.switchMode.emit();
   }
 }
