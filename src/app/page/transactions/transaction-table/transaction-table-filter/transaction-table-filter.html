@@ -22,13 +22,13 @@
     <p-float-label>
       <p-select
         [options]="budgetStore.categories()"
-        optionValue="categoryId"
+        optionValue="budgetCategoryId"
         optionLabel="name"
         inputId="budget-category"
         formControlName="category"
         class="w-full"
       />
-      <label for="budget-category" >Budget Category</label>
+      <label for="budget-category">Budget Category</label>
     </p-float-label>
     <p-button label="Submit" (onClick)="applyFilters()" />
   </form>
