@@ -28,7 +28,7 @@ export const UserStore = signalStore(
       patchState(store, { user: res.user, token: res.token, isLoading: false, authenticated: true });
     },
     logout() {
-      localStorage.clear()
+      localStorage.setItem('user', '');
       patchState(store, initialState)
     },
     loadUserFromStorage() {
