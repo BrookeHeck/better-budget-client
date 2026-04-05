@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {BudgetMenu} from './component/budget-menu/budget-menu';
-import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BudgetMenu, NgClass],
+  imports: [RouterOutlet, BudgetMenu],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

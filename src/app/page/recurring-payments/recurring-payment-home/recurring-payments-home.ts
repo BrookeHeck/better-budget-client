@@ -11,6 +11,7 @@ import {RecurringPaymentTable} from '../recurring-payment-table/recurring-paymen
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {RecurringPaymentCalendar} from '../recurring-payment-calender/recurring-payment-calendar';
+import {ConfirmDialog} from '../../../component/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'recurring-payments',
@@ -23,7 +24,8 @@ import {RecurringPaymentCalendar} from '../recurring-payment-calender/recurring-
     RecurringPaymentTable,
     SelectButton,
     FormsModule,
-    RecurringPaymentCalendar
+    RecurringPaymentCalendar,
+    ConfirmDialog
   ],
   templateUrl: './recurring-payments-home.html',
 })
@@ -36,6 +38,9 @@ export class RecurringPaymentsHome implements OnInit {
 
   protected selectButtonOptions: splitButtonOption[] = ['Table', 'Calendar'];
   protected selectedOption: splitButtonOption = 'Table';
+
+  protected showConfirmDeleteDialog: boolean = false;
+  private paymentIdToDelete: number;
 
   ngOnInit() {
     this.recurringPaymentStore.loadRecurringPaymentsForUser(this.userStore.user().userId);
@@ -65,6 +70,23 @@ export class RecurringPaymentsHome implements OnInit {
 
   private async updateRecurringPayment(recurringPayment: RecurringPayment): Promise<void> {
     await this.recurringPaymentStore.updateRecurringPayment(recurringPayment);
+  }
+
+  protected closeConfirmDeleteDialog() {
+    this.showConfirmDeleteDialog = false;
+    this.paymentIdToDelete = null;
+  }
+
+  protected deleteRecurringPayment(id: number) {
+    this.showConfirmDeleteDialog = true;
+    this.paymentIdToDelete = id;
+  }
+
+  protected async confirmDeleteRecurringPayment(confirm: boolean): Promise<void> {
+    if(confirm) {
+      await this.recurringPaymentStore.deleteRecurringPayment(this.paymentIdToDelete);
+    }
+    this.closeConfirmDeleteDialog();
   }
 }
 

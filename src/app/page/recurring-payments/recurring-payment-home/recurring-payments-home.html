@@ -9,6 +9,7 @@
       <recurring-payment-table
         [recurringPayments]="recurringPaymentStore.recurringPayments()"
         (edit)="openCreateEditDialog($event)"
+        (delete)="deleteRecurringPayment($event)"
       />
     } @else {
       <recurring-payment-calendar [recurringPayments]="recurringPaymentStore.recurringPayments()" />
@@ -23,3 +24,11 @@
   [header]="recurringPayment.recurringPaymentId ? 'Edit Payment' : 'Create Payment' " >
   <recurring-payment-form [recurringPayment]="recurringPayment" (submit)="submitForm($event)" />
 </p-dialog>
+
+<confirm-dialog
+  confirmLabel="Delete"
+  confirmSeverity="danger"
+  text="Are you sure you want to delete this recurring payment?"
+  [visible]="showConfirmDeleteDialog"
+  (confirm)="confirmDeleteRecurringPayment($event)"
+/>
